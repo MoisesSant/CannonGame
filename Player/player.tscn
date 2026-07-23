@@ -26,3 +26,4 @@ polygon = PackedVector2Array(-6, -9, 6, -9, 6, 3, -6, 3, -6, -3)
 
 [node name="MovementComponent" type="Node" parent="." unique_id=1521840524]
 script = ExtResource("2_4ntmi")
+Speed = 200.0
