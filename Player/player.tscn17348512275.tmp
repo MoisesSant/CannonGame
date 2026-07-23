@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://cykiqkk722pgd"]
+
+[sub_resource type="GDScript" id="GDScript_hvfyp"]
+script/source = "extends CharacterBody2D
+
+@onready var movement_component: Node = $MovementComponent
+#@onready var health: HealthComponent = $HealthComponent
+
+func _physics_process(delta: float) -> void:
+	var player_dir = Input.get_vector(\"move_left\", \"move_right\", \"move_up\", \"move_down\")
+	velocity = movement._apply_progressive_movement(delta, player_dir)
+	look_to_mouse(delta)
+	move_and_slide()
+
+func look_to_mouse(delta: float) -> void:
+	var mouse_dir = get_global_mouse_position()
+	var look_to_mouse_dir = mouse_dir - global_position
+	var rotation_speed: float = 10
+	
+	if mouse_dir == Vector2.ZERO:
+		return
+	
+	var target_dir = (
+		look_to_mouse_dir.angle() + PI / 2
+	)
+	
+	rotation = lerp_angle(
+		rotation,
+		target_dir,
+		rotation_speed * delta
+	)
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hvfyp"]
+radius = 7.0
+
+[node name="player" type="CharacterBody2D" unique_id=796541961]
+script = SubResource("GDScript_hvfyp")
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=622806056]
+shape = SubResource("CircleShape2D_hvfyp")
+
+[node name="cannon" type="Polygon2D" parent="." unique_id=1676970879]
+position = Vector2(-4.7683716e-07, -7)
+scale = Vector2(0.625, 0.625)
+color = Color(0.50534403, 0.5053441, 0.50534403, 1)
+polygon = PackedVector2Array(-7.9999986, -5, 8, -5, 6, -3, 6, 3, -6, 3, -6, -3)
+
+[node name="body" type="Polygon2D" parent="." unique_id=1004205829]
+position = Vector2(0, 3)
+color = Color(0.4351923, 0.43519226, 0.43519226, 1)
+polygon = PackedVector2Array(-6, -9, 6, -9, 6, 3, -6, 3, -6, -3)

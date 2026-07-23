@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://cykiqkk722pgd"]
+
+[ext_resource type="Script" uid="uid://bjnhgkypy7mmy" path="res://Player/player.gd" id="1_l8h54"]
+[ext_resource type="Script" uid="uid://dw0ki4gy65nih" path="res://Scripts/Components/movement_component.gd" id="2_4ntmi"]
+[ext_resource type="Script" uid="uid://n1w8s6svxs55" path="res://Scripts/Components/health_component.gd" id="3_btcbx"]
+[ext_resource type="Script" uid="uid://c6de0i10itfku" path="res://Scripts/Components/hurtbox_component.gd" id="4_gwnis"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hvfyp"]
+radius = 7.0
+
+[node name="player" type="CharacterBody2D" unique_id=796541961]
+script = ExtResource("1_l8h54")
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=622806056]
+shape = SubResource("CircleShape2D_hvfyp")
+
+[node name="cannon" type="Polygon2D" parent="." unique_id=1676970879]
+position = Vector2(-4.7683716e-07, -7)
+scale = Vector2(0.625, 0.625)
+color = Color(0.50534403, 0.5053441, 0.50534403, 1)
+polygon = PackedVector2Array(-7.9999986, -5, 8, -5, 6, -3, 6, 3, -6, 3, -6, -3)
+
+[node name="body" type="Polygon2D" parent="." unique_id=1004205829]
+position = Vector2(0, 3)
+color = Color(0.4351923, 0.43519226, 0.43519226, 1)
+polygon = PackedVector2Array(-6, -9, 6, -9, 6, 3, -6, 3, -6, -3)
+
+[node name="MovementComponent" type="Node" parent="." unique_id=1261246902]
+script = ExtResource("2_4ntmi")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=614598233]
+script = ExtResource("3_btcbx")
+
+[node name="HurtboxComponent" type="Node" parent="." unique_id=723481258]
+script = ExtResource("4_gwnis")
