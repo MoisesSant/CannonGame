@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://dhr0kkai8lfhk"]
+
+[ext_resource type="Script" uid="uid://b5pqrtapwub7l" path="res://Player/Cannon.cs" id="1_srp1w"]
+[ext_resource type="PackedScene" uid="uid://ba40a4woap4kf" path="res://Player/bullet.tscn" id="2_gh7w1"]
+
+[node name="Cannon" type="Node2D" unique_id=1166233000 node_paths=PackedStringArray("ShootPos")]
+script = ExtResource("1_srp1w")
+BulletScene = ExtResource("2_gh7w1")
+ShootPos = NodePath("ShootPos")
+CooldownTime = 0.5
+
+[node name="ShootPos" type="Marker2D" parent="." unique_id=1516167586]
+position = Vector2(0, -8)

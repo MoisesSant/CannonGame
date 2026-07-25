@@ -49,3 +49,8 @@ public partial class MovementComponent : Node
 		return Velocity;
 	}
 }
+/*
+como eu posso melhorar esse código deixando o mais proficional possível?, e quando eu disparo um projétil ele cria um timer extra fora da SceneTree do bullet e não desaparece quando timeout é chamado, como eu posso resolver isso? e como eu posso de forma eficáz e acertiva pegar a referência desses timers extra?
+
+Nota: O primeiro timer que é criado fora da SceneTree do bullet surgindo na árvore Root tem o nome @Timer@2 e depois sucessivamente @Timer@3...
+*/

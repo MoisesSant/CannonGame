@@ -22,10 +22,10 @@ public partial class Player : CharacterBody2D
   {
     base._PhysicsProcess(delta);
     PlayerDirection = Input.GetVector(
-      "move_left",
-      "move_right",
-      "move_up",
-      "move_down"
+      "Move_Left",
+      "Move_Right",
+      "Move_Up",
+      "Move_Down"
     );
     Velocity = Movement.ApplyProgressiveMovement(delta, PlayerDirection, this);
     LookToMouse(delta);

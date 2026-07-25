@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://qn0gn840f544"]
+
+[ext_resource type="Texture2D" uid="uid://cv4sskkh0o3cg" path="res://icon.svg" id="1_2pb1h"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_borfm"]
+radius = 66.0
+height = 134.0
+
+[node name="Enemy" type="CharacterBody2D" unique_id=1424765755]
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=180874296]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_borfm")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1535889053]
+modulate = Color(0, 0, 0, 0.21960784)
+texture = ExtResource("1_2pb1h")
