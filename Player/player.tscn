@@ -5,7 +5,10 @@
 [ext_resource type="PackedScene" uid="uid://dhr0kkai8lfhk" path="res://Player/cannon.tscn" id="3_btcbx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hvfyp"]
-radius = 7.0
+radius = 6.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rbvsp"]
+size = Vector2(6, 6)
 
 [node name="player" type="CharacterBody2D" unique_id=796541961 node_paths=PackedStringArray("Movement")]
 z_index = 1
@@ -13,7 +16,13 @@ script = ExtResource("1_4ntmi")
 Movement = NodePath("MovementComponent")
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=622806056]
+z_index = 1
 shape = SubResource("CircleShape2D_hvfyp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=376184575]
+z_index = 1
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_rbvsp")
 
 [node name="CannonPolygon" type="Polygon2D" parent="." unique_id=1676970879]
 position = Vector2(-4.7683716e-07, -7)
@@ -24,9 +33,10 @@ polygon = PackedVector2Array(-7.9999986, -5, 8, -5, 6, -3, 6, 3, -6, 3, -6, -3)
 [node name="BodyPolygon" type="Polygon2D" parent="." unique_id=1004205829]
 position = Vector2(0, 3)
 color = Color(0.4351923, 0.43519226, 0.43519226, 1)
-polygon = PackedVector2Array(-6, -9, 6, -9, 6, 3, -6, 3, -6, -3)
+polygon = PackedVector2Array(-6, -9, -0.0051498413, -9, 6, -9, 6, 3, -6, 3, -6, -3)
 
 [node name="Cannon" parent="." unique_id=1166233000 instance=ExtResource("3_btcbx")]
+CooldownTime = 0.1
 
 [node name="MovementComponent" type="Node" parent="." unique_id=1521840524]
 script = ExtResource("2_4ntmi")

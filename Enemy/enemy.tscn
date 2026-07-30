@@ -1,19 +1,34 @@
 [gd_scene format=3 uid="uid://qn0gn840f544"]
 
 [ext_resource type="Texture2D" uid="uid://cv4sskkh0o3cg" path="res://icon.svg" id="1_2pb1h"]
+[ext_resource type="Script" uid="uid://ddmvv7hbycuwp" path="res://Enemy/Enemy.cs" id="1_eqilm"]
+[ext_resource type="Script" uid="uid://bj1wxjjyx56cn" path="res://Scripts/Components/AiComponent.cs" id="2_am0pq"]
+[ext_resource type="Script" uid="uid://chephqaclmj84" path="res://Scripts/Components/MovementComponent.cs" id="3_eqilm"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_borfm"]
-radius = 66.0
-height = 134.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_ncf7h"]
+radius = 19.00658
 
-[node name="Enemy" type="CharacterBody2D" unique_id=1424765755]
+[node name="Enemy" type="CharacterBody2D" unique_id=1424765755 node_paths=PackedStringArray("Movement")]
 collision_mask = 2
+script = ExtResource("1_eqilm")
+Movement = NodePath("MovementComponent")
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=180874296]
-rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_borfm")
+z_index = 1
+position = Vector2(0.50000197, -9.536743e-07)
+shape = SubResource("CircleShape2D_ncf7h")
 disabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1535889053]
-scale = Vector2(0.5, 0.5)
+position = Vector2(0.3999985, 0)
+scale = Vector2(0.30624998, 0.3)
 texture = ExtResource("1_2pb1h")
+
+[node name="AIComponent" type="Node" parent="." unique_id=1220275718 node_paths=PackedStringArray("Movement")]
+script = ExtResource("2_am0pq")
+Movement = NodePath("../MovementComponent")
+
+[node name="MovementComponent" type="Node" parent="." unique_id=333168761]
+script = ExtResource("3_eqilm")
+Speed = 50.0
+Friction = 0.0

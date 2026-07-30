@@ -12,6 +12,8 @@ public partial class Player : CharacterBody2D
   public override void _Ready()
   {
     base._Ready();
+    AddToGroup("Player");
+
     if (Movement == null)
     {
       GD.PrintErr("Movement is not defined");

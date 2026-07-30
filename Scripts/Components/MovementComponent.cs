@@ -9,7 +9,7 @@ public partial class MovementComponent : Node
 	[Export] public float Friction { get; set; } = 50.0f;
 
 	// INTERNAL
-	public Vector2 Velocity { get; set; } = Vector2.Zero;
+	public Vector2 _velocity { get; set; } = Vector2.Zero;
 
 	// METHODS
 	public Vector2 ApplyLinearMovement(
@@ -20,14 +20,14 @@ public partial class MovementComponent : Node
 
 		if (inputDirection != Vector2.Zero)
 		{
-			Velocity = Velocity.MoveToward(targetVelocity, Acceleration);
+			_velocity = _velocity.MoveToward(targetVelocity, Acceleration);
 		}
 		else
 		{
-			Velocity = Velocity.MoveToward(Vector2.Zero, Friction);
+			_velocity = _velocity.MoveToward(Vector2.Zero, Friction);
 		}
 		Body.MoveAndSlide();
-		return Velocity;
+		return _velocity;
 	}
 
 	public Vector2 ApplyProgressiveMovement(
@@ -35,22 +35,17 @@ public partial class MovementComponent : Node
 		Vector2 inputDirection,
 		CharacterBody2D Body)
 	{
-		Velocity = Velocity.LimitLength(Speed);
+		_velocity = _velocity.LimitLength(Speed);
 
 		if (inputDirection != Vector2.Zero)
 		{
-			Velocity += inputDirection * Acceleration * (float)delta;
+			_velocity += inputDirection * Acceleration * (float)delta;
 		}
 		else
 		{
-			Velocity *= Friction * (float)delta;
+			_velocity *= Friction * (float)delta;
 		}
 		Body.MoveAndSlide();
-		return Velocity;
+		return _velocity;
 	}
 }
-/*
-como eu posso melhorar esse código deixando o mais proficional possível?, e quando eu disparo um projétil ele cria um timer extra fora da SceneTree do bullet e não desaparece quando timeout é chamado, como eu posso resolver isso? e como eu posso de forma eficáz e acertiva pegar a referência desses timers extra?
-
-Nota: O primeiro timer que é criado fora da SceneTree do bullet surgindo na árvore Root tem o nome @Timer@2 e depois sucessivamente @Timer@3...
-*/

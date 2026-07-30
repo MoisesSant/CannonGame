@@ -19,7 +19,7 @@ config/icon="res://icon.svg"
 
 window/size/viewport_width=640
 window/size/viewport_height=360
-window/size/initial_position=Vector2i(1260, 720)
+window/size/initial_position=Vector2i(1280, 720)
 window/stretch/mode="canvas_items"
 
 [dotnet]
@@ -42,6 +42,7 @@ folder_colors={
 [global_group]
 
 Bullets=""
+Player=""
 
 [input]
 
