@@ -4,9 +4,6 @@ using System.Linq;
 
 public partial class AiComponent : Node
 {
-	[ExportGroup("Connections")]
-	[Export] public MovementComponent Movement { get; set; }
-
 	private Node2D _target;
 	private CharacterBody2D OwnerBody { get; set; }
 	private Godot.Collections.Array<Node> Players { get; set; }
@@ -24,8 +21,9 @@ public partial class AiComponent : Node
 	public override void _PhysicsProcess(double delta)
 	{
 		base._PhysicsProcess(delta);
-		if (_target == null || IsInstanceValid(_target))
+		if (_target == null || !IsInstanceValid(_target))
 		{
+			GD.PrintErr(what: "yty");
 			_findTarget();
 			return;
 		}

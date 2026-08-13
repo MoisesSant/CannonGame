@@ -1,8 +1,12 @@
 [gd_scene format=3 uid="uid://ba40a4woap4kf"]
 
 [ext_resource type="Script" uid="uid://b6um2prjlrvli" path="res://Player/Bullet.cs" id="1_kxw81"]
+[ext_resource type="Script" uid="uid://4a3qi54t0gux" path="res://Scripts/Components/HitboxComponent.cs" id="2_tqmay"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vouaq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rbvsp"]
+radius = 5.8901505
 
 [node name="Bullet" type="Area2D" unique_id=2061378453 groups=["Bullets"]]
 scale = Vector2(0.7, 0.7)
@@ -18,3 +22,10 @@ color = Color(0.9764706, 0, 0, 1)
 polygon = PackedVector2Array(0, 10, 10, 0, 0, -10, -10, 0)
 
 [node name="Timer" type="Timer" parent="." unique_id=590330882]
+
+[node name="HitboxComponent" type="Area2D" parent="." unique_id=277253110]
+script = ExtResource("2_tqmay")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=1728383367]
+shape = SubResource("CircleShape2D_rbvsp")
+debug_color = Color(0.99480647, 0, 0.22358105, 0.41960785)

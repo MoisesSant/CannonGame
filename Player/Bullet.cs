@@ -40,7 +40,6 @@ public partial class Bullet : Area2D
   [Export] public float LifeTime { get; set; } = 2.0f;
   private Timer _lifeTimer { get; set; }
   public const float SPEED = 500.0f;
-
   public override void _Ready()
   {
     base._Ready();
