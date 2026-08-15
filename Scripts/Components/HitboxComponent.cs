@@ -2,29 +2,23 @@ using Godot;
 
 public partial class HitboxComponent : Area2D
 {
-  [Export] public float Damage { get; set; } = 10;
-  [Export] public float KnockbackForce { get; set; } = 200f;
-  [Export] public Area2D Hurtbox { get; set; } = null;
-
+  [Export] public float Damage { get; set; } = 10.0f;
   [Signal] public delegate void HitEventHandler(HitData hitData);
 
+  public bool _hasHit;
   public override void _Ready()
   {
-    AreaEntered += OnAreaEnteredSignal; // Connecta o signal à função
+    AreaEntered += OnAreaEnteredSignal; // Conecta o signal à função
   }
 
   private void OnAreaEnteredSignal(Area2D Area)
   {
     if (Area is not HurtboxComponent) return; // Ignora qualquer area que não for HurtBox
-    if (Area == Hurtbox) return; // Evita self-hit
 
-    var hitData = new HitData // Armazena os dados passados
+    var hitData = new HitData
     {
       Damage = Damage,
-      Knockback = KnockbackForce,
-      Hitbox = this,
-      Hurtbox = (HurtboxComponent)Hurtbox,
-      HitPosition = GlobalPosition
+      _hasHit = _hasHit
     };
 
     ((HurtboxComponent)Area).ReceiveHit(hitData); // Chama a função dentro do Hurtbox e aplica o hitData
@@ -37,8 +31,5 @@ public partial class HitboxComponent : Area2D
 public partial class HitData : RefCounted // Faz Tipagem dos dados contidos em HitData com classes
 {
   public float Damage { get; set; }
-  public float Knockback { get; set; }
-  public HitboxComponent Hitbox { get; set; }
-  public HurtboxComponent Hurtbox { get; set; }
-  public Vector2 HitPosition { get; set; }
+  public bool _hasHit { get; set; }
 }

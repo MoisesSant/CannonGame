@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://chephqaclmj84" path="res://Scripts/Components/MovementComponent.cs" id="2_4ntmi"]
 [ext_resource type="PackedScene" uid="uid://dhr0kkai8lfhk" path="res://Player/cannon.tscn" id="3_btcbx"]
 [ext_resource type="Script" uid="uid://m58n8vfcpu00" path="res://Scripts/Components/HurtboxComponent.cs" id="4_gwnis"]
+[ext_resource type="Script" uid="uid://dkce3x8am63ty" path="res://Scripts/Components/HealthComponent.cs" id="5_k53q1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hvfyp"]
 radius = 6.0
@@ -13,6 +14,7 @@ radius = 6.0
 
 [node name="player" type="CharacterBody2D" unique_id=796541961 node_paths=PackedStringArray("Movement")]
 z_index = 1
+collision_mask = 2
 script = ExtResource("1_4ntmi")
 Movement = NodePath("MovementComponent")
 
@@ -29,19 +31,23 @@ polygon = PackedVector2Array(-7.9999986, -5, 8, -5, 6, -3, 6, 3, -6, 3, -6, -3)
 [node name="BodyPolygon" type="Polygon2D" parent="." unique_id=1004205829]
 position = Vector2(0, 3)
 color = Color(0.4351923, 0.43519226, 0.43519226, 1)
-polygon = PackedVector2Array(-6, -9, -0.0051498413, -9, 6, -9, 6, 3, -6, 3, -6, -3)
+polygon = PackedVector2Array(-6, -9, 0, -9, 6, -9, 6, 3, -6, 3, -6, -3)
 
 [node name="Cannon" parent="." unique_id=1166233000 instance=ExtResource("3_btcbx")]
-position = Vector2(0, -3)
 CooldownTime = 0.1
 
 [node name="MovementComponent" type="Node" parent="." unique_id=1521840524]
 script = ExtResource("2_4ntmi")
 Speed = 150.0
 
-[node name="HurtboxComponent" type="Area2D" parent="." unique_id=224928321]
+[node name="HurtboxComponent" type="Area2D" parent="." unique_id=224928321 node_paths=PackedStringArray("Health")]
 script = ExtResource("4_gwnis")
+Health = NodePath("../HealthComponent")
 
 [node name="Collision" type="CollisionShape2D" parent="HurtboxComponent" unique_id=63375292]
 shape = SubResource("CircleShape2D_borfm")
 debug_color = Color(0.9840557, 0, 0.35163862, 0.41960785)
+
+[node name="HealthComponent" type="Node" parent="." unique_id=729202920]
+script = ExtResource("5_k53q1")
+MaxHealth = 1.0

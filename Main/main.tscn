@@ -13,3 +13,5 @@ position = Vector2(320, 175)
 script = ExtResource("2_2w1kt")
 SpawnRate = 1.0
 EnemyScene = ExtResource("3_qvhan")
+
+[editable path="player"]
