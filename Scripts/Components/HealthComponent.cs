@@ -28,12 +28,18 @@ public partial class HealthComponent : Node
   public void TakeDamage(HitData hitData) // Função que adiministra o dano e mudança da vida
   {
     if (hitData.Damage <= 0) return; // dano nulo
-    if (CurrentHealth <= 0) EmitSignal(SignalName.Depleted); // Caso a vida = 0; envia que a entidade perdeu todas as suas vidas
-
     CurrentHealth -= hitData.Damage;
+
+    if (CurrentHealth <= 0) EmitSignal(SignalName.Depleted); // Caso a vida = 0; envia que a entidade perdeu todas as suas vidas
 
     EmitSignal(SignalName.DamageTaken, hitData);
     EmitSignal(SignalName.HealthChanged, CurrentHealth, MaxHealth);
 
+  }
+
+  public float PorcentageHealth()
+  {
+    float porcentage = CurrentHealth / MaxHealth * 100;
+    return porcentage;
   }
 }

@@ -17,13 +17,8 @@ public partial class HurtboxComponent : Area2D
       return;
     }
 
-    if (hitData._hasHit == true)
-    {
-      GD.PrintErr("Already Hited");
-      return;
-    }
+    if (hitData._hasHit == true) return;
 
-    hitData._hasHit = true;
     Health.TakeDamage(hitData);
   }
 }

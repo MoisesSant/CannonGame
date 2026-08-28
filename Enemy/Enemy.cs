@@ -2,10 +2,13 @@ using Godot;
 
 public partial class Enemy : CharacterBody2D
 {
-	[Export] public MovementComponent Movement;
-	[Export] public HealthComponent Health;
+	[Export] private MovementComponent Movement;
+	[Export] private HealthComponent Health;
+	[Export] ProgressBar HealthBar { get; set; }
+
 	private Vector2 Direction { get; set; }
 	private CharacterBody2D Player { get; set; }
+
 	public override void _Ready()
 	{
 		base._Ready();
@@ -37,5 +40,7 @@ public partial class Enemy : CharacterBody2D
 		base._PhysicsProcess(delta);
 		Direction = GlobalPosition.DirectionTo(Player.GlobalPosition);
 		Velocity = Movement.ApplyLinearMovement(Direction, this);
+
+		HealthBar.Value = Health.PorcentageHealth();
 	}
 }

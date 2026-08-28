@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://chephqaclmj84" path="res://Scripts/Components/MovementComponent.cs" id="3_eqilm"]
 [ext_resource type="Script" uid="uid://m58n8vfcpu00" path="res://Scripts/Components/HurtboxComponent.cs" id="5_ncf7h"]
 [ext_resource type="Script" uid="uid://dkce3x8am63ty" path="res://Scripts/Components/HealthComponent.cs" id="6_m6jha"]
+[ext_resource type="Script" uid="uid://4a3qi54t0gux" path="res://Scripts/Components/HitboxComponent.cs" id="7_glvfu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ncf7h"]
 radius = 19.00658
@@ -13,15 +14,22 @@ radius = 19.00658
 [sub_resource type="CircleShape2D" id="CircleShape2D_rbvsp"]
 radius = 22.022715
 
-[node name="Enemy" type="CharacterBody2D" unique_id=1424765755 node_paths=PackedStringArray("Movement", "Health")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_borfm"]
+radius = 20.069324
+
+[node name="Enemy" type="CharacterBody2D" unique_id=1424765755 node_paths=PackedStringArray("Movement", "Health", "HealthBar")]
+scale = Vector2(0.6, 0.6)
 script = ExtResource("1_eqilm")
 Movement = NodePath("MovementComponent")
 Health = NodePath("HealthComponent")
+HealthBar = NodePath("ProgressBar")
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=180874296]
+visible = false
 z_index = 1
 shape = SubResource("CircleShape2D_ncf7h")
 disabled = true
+debug_color = Color(1, 1, 1, 0.45490196)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1535889053]
 scale = Vector2(0.30624998, 0.3)
@@ -47,4 +55,28 @@ debug_color = Color(0.7498081, 0.46027613, 3.85046e-07, 0.41960785)
 
 [node name="HealthComponent" type="Node" parent="." unique_id=60396231]
 script = ExtResource("6_m6jha")
-MaxHealth = 10.0
+MaxHealth = 20.0
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=1216314545]
+custom_minimum_size = Vector2(0, 1)
+custom_maximum_size = Vector2(-1, 10)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -41.666664
+offset_top = -55.33336
+offset_right = 41.666664
+offset_bottom = -28.333359
+grow_horizontal = 2
+grow_vertical = 0
+show_percentage = false
+
+[node name="HitboxComponent" type="Area2D" parent="." unique_id=2067057365]
+script = ExtResource("7_glvfu")
+Damage = 30.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=1563473544]
+shape = SubResource("CircleShape2D_borfm")
+debug_color = Color(0.9011305, 0, 0.1581403, 0.41960785)

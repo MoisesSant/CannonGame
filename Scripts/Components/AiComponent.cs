@@ -1,6 +1,4 @@
 using Godot;
-using System;
-using System.Linq;
 
 public partial class AiComponent : Node
 {
@@ -23,7 +21,6 @@ public partial class AiComponent : Node
 		base._PhysicsProcess(delta);
 		if (_target == null || !IsInstanceValid(_target))
 		{
-			GD.PrintErr(what: "yty");
 			_findTarget();
 			return;
 		}
