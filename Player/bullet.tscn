@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ba40a4woap4kf"]
 
-[ext_resource type="Script" uid="uid://b6um2prjlrvli" path="res://Player/Bullet.cs" id="1_kxw81"]
-[ext_resource type="Script" uid="uid://4a3qi54t0gux" path="res://Scripts/Components/HitboxComponent.cs" id="2_tqmay"]
+[ext_resource type="Script" uid="uid://b6um2prjlrvli" path="res://Main/src/Player/Bullet.cs" id="1_kxw81"]
+[ext_resource type="Script" uid="uid://4a3qi54t0gux" path="res://Main/src/Scripts/Components/HitboxComponent.cs" id="2_tqmay"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vouaq"]
 

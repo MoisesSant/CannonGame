@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://ej0pyl0jd74r"]
+
+[node name="GUI" type="CanvasLayer" unique_id=325915292]
+process_mode = 3
+follow_viewport_enabled = true
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=2111621806]
+position = Vector2(320, 180)
+
+[node name="MainUI" type="Control" parent="." unique_id=6583501]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MainUI" unique_id=56093312]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 120
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 120
+theme_override_constants/margin_bottom = 70
+
+[node name="HealthBar" type="ProgressBar" parent="MainUI/MarginContainer" unique_id=855945829]
+custom_minimum_size = Vector2(0, 1)
+custom_maximum_size = Vector2(-1, 10)
+layout_mode = 2
+size_flags_vertical = 1
+show_percentage = false

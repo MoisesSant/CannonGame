@@ -12,7 +12,7 @@ radius = 6.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_borfm"]
 radius = 6.0
 
-[node name="Player" type="CharacterBody2D" unique_id=796541961 node_paths=PackedStringArray("Movement", "Health")]
+[node name="Player" type="CharacterBody2D" unique_id=796541961 node_paths=PackedStringArray("Movement", "Health") groups=["Player"]]
 z_index = 1
 collision_mask = 2
 script = ExtResource("1_4ntmi")
@@ -47,6 +47,8 @@ debug_color = Color(0.9840557, 0, 0.35163862, 0.41960785)
 
 [node name="HealthComponent" type="Node" parent="." unique_id=729202920]
 script = ExtResource("5_k53q1")
+CanBecomeInvencible = true
+InvencibilityTime = 1.0
 
 [node name="MovementComponent" type="Node" parent="." unique_id=1521840524]
 script = ExtResource("2_4ntmi")

@@ -75,7 +75,6 @@ show_percentage = false
 
 [node name="HitboxComponent" type="Area2D" parent="." unique_id=2067057365]
 script = ExtResource("7_glvfu")
-Damage = 30.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=1563473544]
 shape = SubResource("CircleShape2D_borfm")

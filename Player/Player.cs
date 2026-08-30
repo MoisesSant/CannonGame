@@ -4,10 +4,10 @@ using System;
 // 150, 250, 50;
 public partial class Player : CharacterBody2D
 {
-  [Export] public PackedScene MenuPath;
   [Export] private MovementComponent Movement { get; set; }
   [Export] private HealthComponent Health { get; set; }
   [Export] private ProgressBar HealthBar { get; set; }
+  [Export] private Global Global;
   private Vector2 PlayerDirection { get; set; }
   private Vector2 MouseDirection => GetGlobalMousePosition();
   private double RotationSpeed { get; set; } = 10.0f;
@@ -54,9 +54,9 @@ public partial class Player : CharacterBody2D
     );
   }
 
-  private void Death()
+  public void Death()
   {
-    SetPhysicsProcess(false);
-    GetNode<Control>("../Manu").Visible = true;
+    GetNode<Control>("%DeathScreen").Visible = true;
+    GetTree().Paused = true;
   }
 }

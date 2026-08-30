@@ -15,6 +15,10 @@ run/main_scene="uid://jlmpmj1cfi07"
 config/features=PackedStringArray("4.7", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Global="*uid://dflljwlgahkm"
+
 [display]
 
 window/size/viewport_width=640
@@ -34,15 +38,17 @@ enabled=PackedStringArray("res://addons/BuildOnChangeOnly/plugin.cfg")
 
 folder_colors={
 "res://Enemy/": "red",
-"res://Main/": "green",
+"res://Main/": "purple",
 "res://Player/": "teal",
-"res://Scripts/": "orange"
+"res://Scripts/": "orange",
+"res://UI/": "green"
 }
 
 [global_group]
 
 Bullets=""
 Player=""
+Enemy=""
 
 [input]
 
