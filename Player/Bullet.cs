@@ -33,7 +33,7 @@ public partial class Bullet : Area2D
     base._Process(delta);
     Position += Transform.X * Speed * (float)delta; // Adiciona velocidade no eixo X ao Bullet
 
-    if (Hitbox._hasHit == true)
+    if (Hitbox._hasCollided == true)
     {
       QueueFree();
     }

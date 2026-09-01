@@ -44,6 +44,7 @@ Speed = 50.0
 Friction = 0.0
 
 [node name="HurtboxComponent" type="Area2D" parent="." unique_id=141770474 node_paths=PackedStringArray("Health")]
+scale = Vector2(0.67626387, 0.67314696)
 collision_layer = 2
 collision_mask = 4
 script = ExtResource("5_ncf7h")
@@ -74,6 +75,7 @@ grow_vertical = 0
 show_percentage = false
 
 [node name="HitboxComponent" type="Area2D" parent="." unique_id=2067057365]
+scale = Vector2(0.86504847, 0.8847941)
 script = ExtResource("7_glvfu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=1563473544]

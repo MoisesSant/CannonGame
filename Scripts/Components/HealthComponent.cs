@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 public partial class HealthComponent : Node
@@ -7,13 +8,13 @@ public partial class HealthComponent : Node
 	[ExportCategory("Invencibility")]
 	[Export] public bool CanBecomeInvencible { get; set; }
 	[Export] public float InvencibilityTime { get; set; }
+
 	[Signal] public delegate void HealthChangedEventHandler(float Current, float Max);
 	[Signal] public delegate void DepletedEventHandler(); // Quando a vida acaba
-
-	// [Signal] public delegate void DamageTakenEventHandler(HitData hitData); // Envia a quantidade de dano que foi recebido
+	[Signal] public delegate void DamageTakenEventHandler(HitData hitData); // Envia a quantidade de dano que foi recebido
 
 	public float CurrentHealth { get; private set; }
-	private bool IsInvencible { get; set; }
+	public bool IsInvencible { get; set; } = false;
 	private Timer _timer;
 	public override void _Ready() { CurrentHealth = MaxHealth; }
 
@@ -25,20 +26,18 @@ public partial class HealthComponent : Node
 
 		if (CurrentHealth <= 0) EmitSignal(SignalName.Depleted); // Caso a vida = 0; envia que a entidade perdeu todas as suas vidas
 
-		//EmitSignal(SignalName.DamageTaken, hitData);
+		EmitSignal(SignalName.DamageTaken, hitData);
 		EmitSignal(SignalName.HealthChanged, CurrentHealth, MaxHealth);
 
 		if (CanBecomeInvencible == false) return;
 		IsInvencible = true;
 		SetInvencibility();
 	}
-
 	public float PorcentageHealth()
 	{
 		float porcentage = CurrentHealth / MaxHealth * 100;
 		return porcentage;
 	}
-
 	public void SetInvencibility()
 	{
 		_timer = new Timer
@@ -47,15 +46,8 @@ public partial class HealthComponent : Node
 			Autostart = false,
 			OneShot = true
 		};
-
 		AddChild(_timer);
 		_timer.Start();
 		_timer.Timeout += () => IsInvencible = false;
-	}
-	public override void _Process(double delta)
-	{
-		base._Process(delta);
-		if (IsInvencible == true)
-			GD.Print(_timer);
 	}
 }

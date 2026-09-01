@@ -2,10 +2,15 @@ using Godot;
 
 public partial class ResetButton : Button
 {
-	public override void _Ready() { Pressed += OnResetGame; }
+	[Signal] public delegate void ResetGameEventHandler();
+	public override void _Ready()
+	{
+		base._Ready();
+		Pressed += OnResetGame;
+	}
+
 	public void OnResetGame()
 	{
-		GetTree().Paused = false;
-		GetTree().ReloadCurrentScene();
+		EmitSignal(SignalName.ResetGame);
 	}
 }

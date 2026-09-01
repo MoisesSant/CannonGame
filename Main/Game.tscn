@@ -1,14 +1,14 @@
 [gd_scene format=3 uid="uid://jlmpmj1cfi07"]
 
-[ext_resource type="Script" uid="uid://626ag3b6hcfa" path="res://Main/Game.cs" id="1_c8w0m"]
+[ext_resource type="Script" uid="uid://626ag3b6hcfa" path="res://Main/GameManager.cs" id="1_c8w0m"]
 [ext_resource type="PackedScene" uid="uid://cykiqkk722pgd" path="res://Player/player.tscn" id="2_1js7q"]
 [ext_resource type="Script" uid="uid://u00gmbugau0l" path="res://Scripts/Components/SpawnComponent.cs" id="2_2w1kt"]
 [ext_resource type="Script" uid="uid://dflljwlgahkm" path="res://Main/Global.cs" id="2_ansgg"]
 [ext_resource type="PackedScene" uid="uid://qn0gn840f544" path="res://Enemy/enemy.tscn" id="2_l80to"]
 [ext_resource type="PackedScene" uid="uid://cqvq51hc27wnd" path="res://UI/DeathScreen.tscn" id="3_l80to"]
+[ext_resource type="PackedScene" uid="uid://npi0aefidbwp" path="res://UI/PauseManu.tscn" id="5_ansgg"]
 
 [node name="Game" type="Node2D" unique_id=846670985]
-script = ExtResource("1_c8w0m")
 
 [node name="Global" type="Node" parent="." unique_id=170442796]
 unique_name_in_owner = true
@@ -16,9 +16,9 @@ script = ExtResource("2_ansgg")
 
 [node name="Main" type="Node2D" parent="." unique_id=1064387866]
 
-[node name="Player" parent="Main" unique_id=796541961 node_paths=PackedStringArray("HealthBar", "Global") groups=["Player"] instance=ExtResource("2_1js7q")]
+[node name="Player" parent="Main" unique_id=796541961 node_paths=PackedStringArray("HealthBar", "Global") instance=ExtResource("2_1js7q")]
 position = Vector2(292, 190)
-HealthBar = NodePath("GUI/MainUI/MarginContainer/HealthBar")
+HealthBar = NodePath("GUI/HUD/MarginContainer/HealthBar")
 Global = NodePath("../../Global")
 
 [node name="GUI" type="CanvasLayer" parent="Main/Player" unique_id=325915292]
@@ -28,7 +28,7 @@ follow_viewport_enabled = true
 [node name="Camera2D" type="Camera2D" parent="Main/Player/GUI" unique_id=2111621806]
 position = Vector2(320, 180)
 
-[node name="MainUI" type="Control" parent="Main/Player/GUI" unique_id=6583501]
+[node name="HUD" type="Control" parent="Main/Player/GUI" unique_id=6583501]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,7 +36,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Main/Player/GUI/MainUI" unique_id=56093312]
+[node name="MarginContainer" type="MarginContainer" parent="Main/Player/GUI/HUD" unique_id=56093312]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -48,18 +48,35 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 120
 theme_override_constants/margin_bottom = 70
 
-[node name="HealthBar" type="ProgressBar" parent="Main/Player/GUI/MainUI/MarginContainer" unique_id=855945829]
+[node name="HealthBar" type="ProgressBar" parent="Main/Player/GUI/HUD/MarginContainer" unique_id=855945829]
 custom_minimum_size = Vector2(0, 1)
 custom_maximum_size = Vector2(-1, 10)
 layout_mode = 2
 size_flags_vertical = 1
 show_percentage = false
 
-[node name="DeathScreen" parent="Main/Player/GUI" unique_id=1971909218 instance=ExtResource("3_l80to")]
+[node name="GameManager" type="Node" parent="Main/Player/GUI" unique_id=967653481 node_paths=PackedStringArray("Player")]
+process_mode = 3
+script = ExtResource("1_c8w0m")
+Player = NodePath("../..")
+
+[node name="DeathScreen" parent="Main/Player/GUI/GameManager" unique_id=1971909218 node_paths=PackedStringArray("Player", "PauseManu") instance=ExtResource("3_l80to")]
 unique_name_in_owner = true
+process_mode = 3
 visible = false
+Player = NodePath("../../..")
+PauseManu = NodePath("../PauseMenu")
+
+[node name="PauseMenu" parent="Main/Player/GUI/GameManager" unique_id=118186697 node_paths=PackedStringArray("Game") instance=ExtResource("5_ansgg")]
+unique_name_in_owner = true
+process_mode = 3
+visible = false
+Game = NodePath("..")
 
 [node name="SpawnComponent" type="Node" parent="Main" unique_id=1835138914]
 script = ExtResource("2_2w1kt")
 SpawnRate = 1.0
 EnemyScene = ExtResource("2_l80to")
+
+[editable path="Main/Player/GUI/GameManager/DeathScreen"]
+[editable path="Main/Player/GUI/GameManager/PauseMenu"]

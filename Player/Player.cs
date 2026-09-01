@@ -6,19 +6,24 @@ public partial class Player : CharacterBody2D
 {
   [Export] private MovementComponent Movement { get; set; }
   [Export] private HealthComponent Health { get; set; }
+  [Export] private AnimationPlayer Animation { get; set; }
   [Export] private ProgressBar HealthBar { get; set; }
   [Export] private Global Global;
+
+  [Signal] public delegate void IsDeathEventHandler();
   private Vector2 PlayerDirection { get; set; }
   private Vector2 MouseDirection => GetGlobalMousePosition();
   private double RotationSpeed { get; set; } = 10.0f;
   private double TargetDirection => MouseDistance.Angle() + Math.PI / 2;
   private Vector2 MouseDistance => MouseDirection - GlobalPosition;
+  private bool IsPlayerDead { get; set; } = false;
+
   public override void _Ready()
   {
     base._Ready();
     AddToGroup("Player");
 
-    Health.Depleted += Death;
+    Health.Depleted += () => IsPlayerDead = true;
 
     if (Movement == null)
     {
@@ -40,8 +45,6 @@ public partial class Player : CharacterBody2D
     );
     Velocity = Movement.ApplyLinearMovement(PlayerDirection, this);
     LookToMouse(delta);
-
-
   }
 
   private void LookToMouse(double delta)
@@ -54,9 +57,15 @@ public partial class Player : CharacterBody2D
     );
   }
 
-  public void Death()
+  public override void _Process(double delta)
   {
-    GetNode<Control>("%DeathScreen").Visible = true;
-    GetTree().Paused = true;
+    base._Process(delta);
+    if (Health.IsInvencible == true)
+    {
+      Animation.Play("Invencible");
+    }
+
+    if (IsPlayerDead)
+      EmitSignal(SignalName.IsDeath);
   }
 }

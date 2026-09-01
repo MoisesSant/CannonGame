@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://npi0aefidbwp"]
+
+[ext_resource type="Script" uid="uid://dspb6vm2fo8p" path="res://UI/ResetButton.cs" id="1_6hnju"]
+[ext_resource type="Script" uid="uid://223n5mmt7rt7" path="res://UI/PauseManu.cs" id="1_8eqmm"]
+[ext_resource type="Script" uid="uid://bqwlrjw4h7nn4" path="res://UI/QuitButton.cs" id="2_7e2uc"]
+[ext_resource type="Script" uid="uid://dvm15tts56ylv" path="res://UI/ResumeButton.cs" id="2_8eqmm"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_peltt"]
+font_size = 30
+font_color = Color(1, 1, 1, 0.3254902)
+
+[node name="PauseMenu" type="Control" unique_id=118186697 node_paths=PackedStringArray("Resume", "Reset", "Quit")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8eqmm")
+Resume = NodePath("Margin/VBoxContainer/MarginContainer/VBoxContainer/ResumeButton")
+Reset = NodePath("Margin/VBoxContainer/MarginContainer/VBoxContainer/ResetButton")
+Quit = NodePath("Margin/VBoxContainer/MarginContainer/VBoxContainer/QuitButton")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=819096472]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.27450982)
+
+[node name="Margin" type="MarginContainer" parent="." unique_id=1676513911]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_right = 200
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin" unique_id=1548449851]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/separation = 90
+
+[node name="Label" type="Label" parent="Margin/VBoxContainer" unique_id=1625595649]
+layout_mode = 2
+text = "Paused"
+label_settings = SubResource("LabelSettings_peltt")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Margin/VBoxContainer" unique_id=510673228]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_right = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin/VBoxContainer/MarginContainer" unique_id=988550663]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ResumeButton" type="Button" parent="Margin/VBoxContainer/MarginContainer/VBoxContainer" unique_id=7413104]
+layout_mode = 2
+text = "Resume"
+script = ExtResource("2_8eqmm")
+
+[node name="ResetButton" type="Button" parent="Margin/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1182069385]
+layout_mode = 2
+text = "Reset"
+script = ExtResource("1_6hnju")
+
+[node name="QuitButton" type="Button" parent="Margin/VBoxContainer/MarginContainer/VBoxContainer" unique_id=424953964]
+layout_mode = 2
+text = "Quit"
+script = ExtResource("2_7e2uc")

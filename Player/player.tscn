@@ -12,12 +12,56 @@ radius = 6.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_borfm"]
 radius = 6.0
 
-[node name="Player" type="CharacterBody2D" unique_id=796541961 node_paths=PackedStringArray("Movement", "Health") groups=["Player"]]
+[sub_resource type="Animation" id="Animation_k53q1"]
+resource_name = "HurtAnimation"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.9999946, 0.51015663, 0.44475472, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_vtle1"]
+resource_name = "InvencibleAnimation"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(0.041234706, 0.041234706, 0.041234706),
+"update": 0,
+"values": [Color(1, 1, 1, 0.9529412), Color(1, 1, 1, 0), Color(1, 1, 1, 0.9529412)]
+}
+
+[sub_resource type="Animation" id="Animation_fhl08"]
+length = 0.001
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vtle1"]
+_data = {
+&"HurtAnimation": SubResource("Animation_k53q1"),
+&"Invencible": SubResource("Animation_vtle1"),
+&"RESET": SubResource("Animation_fhl08")
+}
+
+[node name="Player" type="CharacterBody2D" unique_id=796541961 node_paths=PackedStringArray("Movement", "Health", "Animation") groups=["Player"]]
+modulate = Color(1, 1, 1, 0.9529412)
 z_index = 1
 collision_mask = 2
 script = ExtResource("1_4ntmi")
 Movement = NodePath("MovementComponent")
 Health = NodePath("HealthComponent")
+Animation = NodePath("AnimationPlayer")
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=622806056]
 z_index = 1
@@ -54,14 +98,5 @@ InvencibilityTime = 1.0
 script = ExtResource("2_4ntmi")
 Speed = 150.0
 
-[node name="StateMachine" type="Node" parent="." unique_id=1416958958]
-
-[node name="InvecibleState" type="Node" parent="StateMachine" unique_id=399650603]
-
-[node name="Timer" type="Timer" parent="StateMachine/InvecibleState" unique_id=2006819894]
-one_shot = true
-autostart = true
-
-[node name="IdleState" type="Node" parent="StateMachine" unique_id=1415484877]
-
-[node name="MoveState" type="Node" parent="StateMachine" unique_id=1329560711]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=109945034]
+libraries/ = SubResource("AnimationLibrary_vtle1")
