@@ -1,34 +1,91 @@
 [gd_scene format=3 uid="uid://jlmpmj1cfi07"]
 
-[ext_resource type="Script" uid="uid://626ag3b6hcfa" path="res://Main/GameManager.cs" id="1_c8w0m"]
+[ext_resource type="Script" uid="uid://626ag3b6hcfa" path="res://Main/ScreenManager.cs" id="1_c8w0m"]
 [ext_resource type="PackedScene" uid="uid://cykiqkk722pgd" path="res://Player/player.tscn" id="2_1js7q"]
-[ext_resource type="Script" uid="uid://u00gmbugau0l" path="res://Scripts/Components/SpawnComponent.cs" id="2_2w1kt"]
+[ext_resource type="Script" uid="uid://u00gmbugau0l" path="res://Scripts/Components/WaveComponent.cs" id="2_2w1kt"]
 [ext_resource type="Script" uid="uid://dflljwlgahkm" path="res://Main/Global.cs" id="2_ansgg"]
 [ext_resource type="PackedScene" uid="uid://qn0gn840f544" path="res://Enemy/enemy.tscn" id="2_l80to"]
 [ext_resource type="PackedScene" uid="uid://cqvq51hc27wnd" path="res://UI/DeathScreen.tscn" id="3_l80to"]
 [ext_resource type="PackedScene" uid="uid://npi0aefidbwp" path="res://UI/PauseManu.tscn" id="5_ansgg"]
+[ext_resource type="Texture2D" uid="uid://ba1bnvs4gxpm4" path="res://Assets/World/Ground_Test.png" id="8_1qjd6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ansgg"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1qjd6"]
+bg_color = Color(0, 0.95, 0.36416653, 1)
+
+[sub_resource type="Theme" id="Theme_rbvsp"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_ansgg")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_1qjd6")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gcscy"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6i321"]
+bg_color = Color(0.5753272, 0.5249686, 0.98337275, 1)
+
+[sub_resource type="Theme" id="Theme_ckg3m"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_gcscy")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_6i321")
+
+[sub_resource type="Environment" id="Environment_ckg3m"]
+background_mode = 3
+glow_enabled = true
+glow_intensity = 0.75
+glow_bloom = 0.1
 
 [node name="Game" type="Node2D" unique_id=846670985]
 
-[node name="Global" type="Node" parent="." unique_id=170442796]
-unique_name_in_owner = true
+[node name="Global" type="Node" parent="." unique_id=170442796 groups=["GlobalStats"]]
 script = ExtResource("2_ansgg")
 
-[node name="Main" type="Node2D" parent="." unique_id=1064387866]
+[node name="WaveComponent" type="Node" parent="." unique_id=1835138914 node_paths=PackedStringArray("SpawnPoints")]
+script = ExtResource("2_2w1kt")
+EnemyScene = ExtResource("2_l80to")
+SpawnPoints = [NodePath("../World/Player/Camera/EnemySpawnRange/SpawnPoint1"), NodePath("../World/Player/Camera/EnemySpawnRange/SpawnPoint2"), NodePath("../World/Player/Camera/EnemySpawnRange/SpawnPoint3"), NodePath("../World/Player/Camera/EnemySpawnRange/SpawnPoint4"), NodePath("../World/Player/Camera/EnemySpawnRange/SpawnPoint5"), NodePath("../World/Player/Camera/EnemySpawnRange/SpawnPoint6"), NodePath("../World/Player/Camera/EnemySpawnRange/SpawnPoint7"), NodePath("../World/Player/Camera/EnemySpawnRange/SpawnPoint8")]
+SpawnRate = 1.0
 
-[node name="Player" parent="Main" unique_id=796541961 node_paths=PackedStringArray("HealthBar", "Global") instance=ExtResource("2_1js7q")]
-position = Vector2(292, 190)
-HealthBar = NodePath("GUI/HUD/MarginContainer/HealthBar")
+[node name="World" type="Node2D" parent="." unique_id=1064387866]
+
+[node name="Player" parent="World" unique_id=796541961 node_paths=PackedStringArray("HealthBar", "Global") instance=ExtResource("2_1js7q")]
+position = Vector2(319, 180)
+HealthBar = NodePath("GUI/HUD/MarginContainer/VBoxContainer/HealthBar")
 Global = NodePath("../../Global")
 
-[node name="GUI" type="CanvasLayer" parent="Main/Player" unique_id=325915292]
+[node name="Camera" type="Camera2D" parent="World/Player" unique_id=2111621806]
+position = Vector2(-7.1525574e-06, 0)
+
+[node name="EnemySpawnRange" type="Node2D" parent="World/Player/Camera" unique_id=441243649]
+
+[node name="SpawnPoint1" type="Marker2D" parent="World/Player/Camera/EnemySpawnRange" unique_id=248867507]
+position = Vector2(-334, -213)
+
+[node name="SpawnPoint2" type="Marker2D" parent="World/Player/Camera/EnemySpawnRange" unique_id=389723043]
+position = Vector2(2, -250)
+
+[node name="SpawnPoint3" type="Marker2D" parent="World/Player/Camera/EnemySpawnRange" unique_id=1346916332]
+position = Vector2(277, -230)
+
+[node name="SpawnPoint4" type="Marker2D" parent="World/Player/Camera/EnemySpawnRange" unique_id=907438519]
+position = Vector2(-310, 220)
+
+[node name="SpawnPoint5" type="Marker2D" parent="World/Player/Camera/EnemySpawnRange" unique_id=894495078]
+position = Vector2(-3, 203)
+
+[node name="SpawnPoint6" type="Marker2D" parent="World/Player/Camera/EnemySpawnRange" unique_id=254852301]
+position = Vector2(272, 223)
+
+[node name="SpawnPoint7" type="Marker2D" parent="World/Player/Camera/EnemySpawnRange" unique_id=1387858106]
+position = Vector2(378, -14)
+
+[node name="SpawnPoint8" type="Marker2D" parent="World/Player/Camera/EnemySpawnRange" unique_id=1528819112]
+position = Vector2(-428, -3)
+
+[node name="GUI" type="CanvasLayer" parent="World/Player" unique_id=325915292]
 process_mode = 3
-follow_viewport_enabled = true
 
-[node name="Camera2D" type="Camera2D" parent="Main/Player/GUI" unique_id=2111621806]
-position = Vector2(320, 180)
-
-[node name="HUD" type="Control" parent="Main/Player/GUI" unique_id=6583501]
+[node name="HUD" type="Control" parent="World/Player/GUI" unique_id=6583501]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,47 +93,88 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Main/Player/GUI/HUD" unique_id=56093312]
+[node name="MarginContainer" type="MarginContainer" parent="World/Player/GUI/HUD" unique_id=56093312]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 120
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 120
-theme_override_constants/margin_bottom = 70
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 500
+theme_override_constants/margin_bottom = 250
 
-[node name="HealthBar" type="ProgressBar" parent="Main/Player/GUI/HUD/MarginContainer" unique_id=855945829]
+[node name="VBoxContainer" type="VBoxContainer" parent="World/Player/GUI/HUD/MarginContainer" unique_id=2090514686]
+modulate = Color(1, 1, 1, 0.42745098)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="World/Player/GUI/HUD/MarginContainer/VBoxContainer" unique_id=1705900254]
+layout_mode = 2
+text = "Health"
+
+[node name="HealthBar" type="ProgressBar" parent="World/Player/GUI/HUD/MarginContainer/VBoxContainer" unique_id=855945829]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 1)
 custom_maximum_size = Vector2(-1, 10)
 layout_mode = 2
-size_flags_vertical = 1
+size_flags_vertical = 3
+theme = SubResource("Theme_rbvsp")
 show_percentage = false
 
-[node name="GameManager" type="Node" parent="Main/Player/GUI" unique_id=967653481 node_paths=PackedStringArray("Player")]
+[node name="HSeparator" type="HSeparator" parent="World/Player/GUI/HUD/MarginContainer/VBoxContainer" unique_id=1804062503]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label2" type="Label" parent="World/Player/GUI/HUD/MarginContainer/VBoxContainer" unique_id=190354493]
+layout_mode = 2
+text = "Level"
+
+[node name="LevelBar" type="ProgressBar" parent="World/Player/GUI/HUD/MarginContainer/VBoxContainer" unique_id=1239440884]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 1)
+custom_maximum_size = Vector2(-1, 10)
+layout_mode = 2
+size_flags_vertical = 3
+theme = SubResource("Theme_ckg3m")
+show_percentage = false
+
+[node name="ScreenManager" type="Node" parent="World/Player/GUI" unique_id=967653481 node_paths=PackedStringArray("Player")]
 process_mode = 3
 script = ExtResource("1_c8w0m")
 Player = NodePath("../..")
 
-[node name="DeathScreen" parent="Main/Player/GUI/GameManager" unique_id=1971909218 node_paths=PackedStringArray("Player", "PauseManu") instance=ExtResource("3_l80to")]
+[node name="DeathScreen" parent="World/Player/GUI/ScreenManager" unique_id=1971909218 node_paths=PackedStringArray("Player", "PauseManu") instance=ExtResource("3_l80to")]
 unique_name_in_owner = true
 process_mode = 3
 visible = false
 Player = NodePath("../../..")
 PauseManu = NodePath("../PauseMenu")
 
-[node name="PauseMenu" parent="Main/Player/GUI/GameManager" unique_id=118186697 node_paths=PackedStringArray("Game") instance=ExtResource("5_ansgg")]
+[node name="PauseMenu" parent="World/Player/GUI/ScreenManager" unique_id=118186697 node_paths=PackedStringArray("Game") instance=ExtResource("5_ansgg")]
 unique_name_in_owner = true
 process_mode = 3
 visible = false
 Game = NodePath("..")
 
-[node name="SpawnComponent" type="Node" parent="Main" unique_id=1835138914]
-script = ExtResource("2_2w1kt")
-SpawnRate = 1.0
-EnemyScene = ExtResource("2_l80to")
+[node name="Ground" type="Node2D" parent="World" unique_id=1972992491]
 
-[editable path="Main/Player/GUI/GameManager/DeathScreen"]
-[editable path="Main/Player/GUI/GameManager/PauseMenu"]
+[node name="TextureRect" type="TextureRect" parent="World/Ground" unique_id=223729019]
+texture_filter = 1
+offset_left = -1715.0
+offset_top = -1482.0
+offset_right = 2633.0
+offset_bottom = 1511.0
+texture = ExtResource("8_1qjd6")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="World" unique_id=2093606517]
+environment = SubResource("Environment_ckg3m")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="World/WorldEnvironment" unique_id=2078962414]
+color = Color(0.86275005, 0.91509914, 0.97383744, 1)
+
+[editable path="World/Player/GUI/ScreenManager/DeathScreen"]
+[editable path="World/Player/GUI/ScreenManager/PauseMenu"]

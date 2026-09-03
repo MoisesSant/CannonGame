@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://qn0gn840f544"]
 
-[ext_resource type="Texture2D" uid="uid://cv4sskkh0o3cg" path="res://icon.svg" id="1_2pb1h"]
 [ext_resource type="Script" uid="uid://ddmvv7hbycuwp" path="res://Enemy/Enemy.cs" id="1_eqilm"]
 [ext_resource type="Script" uid="uid://bj1wxjjyx56cn" path="res://Scripts/Components/AiComponent.cs" id="2_am0pq"]
 [ext_resource type="Script" uid="uid://chephqaclmj84" path="res://Scripts/Components/MovementComponent.cs" id="3_eqilm"]
 [ext_resource type="Script" uid="uid://m58n8vfcpu00" path="res://Scripts/Components/HurtboxComponent.cs" id="5_ncf7h"]
 [ext_resource type="Script" uid="uid://dkce3x8am63ty" path="res://Scripts/Components/HealthComponent.cs" id="6_m6jha"]
+[ext_resource type="Texture2D" uid="uid://ctnpw3m2tiqgn" path="res://Assets/Enemy/Enemy_TheBlockish.png" id="7_0rspp"]
 [ext_resource type="Script" uid="uid://4a3qi54t0gux" path="res://Scripts/Components/HitboxComponent.cs" id="7_glvfu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ncf7h"]
@@ -13,6 +13,20 @@ radius = 19.00658
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rbvsp"]
 radius = 22.022715
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vtle1"]
+bg_color = Color(0.9, 0, 0.029999971, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_00tjw"]
+bg_color = Color(0.73978436, 3.573708e-05, 1.992613e-05, 1)
+
+[sub_resource type="Theme" id="Theme_k53q1"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_vtle1")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_00tjw")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_borfm"]
 radius = 20.069324
@@ -30,10 +44,6 @@ z_index = 1
 shape = SubResource("CircleShape2D_ncf7h")
 disabled = true
 debug_color = Color(1, 1, 1, 0.45490196)
-
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1535889053]
-scale = Vector2(0.30624998, 0.3)
-texture = ExtResource("1_2pb1h")
 
 [node name="AIComponent" type="Node" parent="." unique_id=1220275718]
 script = ExtResource("2_am0pq")
@@ -66,12 +76,15 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -41.666664
-offset_top = -55.33336
-offset_right = 41.666664
-offset_bottom = -28.333359
+offset_left = -28.333332
+offset_top = -38.333332
+offset_right = 29.033333
+offset_bottom = -28.333332
 grow_horizontal = 2
 grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = SubResource("Theme_k53q1")
 show_percentage = false
 
 [node name="HitboxComponent" type="Area2D" parent="." unique_id=2067057365]
@@ -81,3 +94,9 @@ script = ExtResource("7_glvfu")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=1563473544]
 shape = SubResource("CircleShape2D_borfm")
 debug_color = Color(0.9011305, 0, 0.1581403, 0.41960785)
+
+[node name="EnemyTheBlockish" type="Sprite2D" parent="." unique_id=907731714]
+texture_filter = 1
+position = Vector2(-2.3841858e-07, -2.3841858e-07)
+scale = Vector2(2.1770835, 2.1770835)
+texture = ExtResource("7_0rspp")

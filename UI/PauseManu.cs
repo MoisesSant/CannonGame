@@ -5,7 +5,7 @@ public partial class PauseManu : Control
 	[Export] private ResumeButton Resume;
 	[Export] private ResetButton Reset;
 	[Export] private QuitButton Quit;
-	[Export] private GameManager Game;
+	[Export] private ScreenManager Game;
 	public override void _Ready()
 	{
 		base._Ready();

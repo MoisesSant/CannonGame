@@ -8,13 +8,15 @@ public partial class Enemy : CharacterBody2D
 
 	private Vector2 Direction { get; set; }
 	private CharacterBody2D Player { get; set; }
+	private Global Global;
 
 	public override void _Ready()
 	{
 		base._Ready();
 		AddToGroup("Enemy");
-		Health.Depleted += Death; // connecta ao signal
+		Health.Depleted += Death;
 
+		Global = (Global)GetTree().GetFirstNodeInGroup("GlobalStats");
 		Player = (CharacterBody2D)GetTree().GetFirstNodeInGroup("Player");
 
 		if (Movement == null) // Checagem de erro
@@ -32,6 +34,8 @@ public partial class Enemy : CharacterBody2D
 
 	private void Death()
 	{
+		Global.PlayerPoints += 1;
+		GD.Print(Global.PlayerPoints);
 		QueueFree();
 	}
 

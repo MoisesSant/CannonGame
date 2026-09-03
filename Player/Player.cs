@@ -8,6 +8,7 @@ public partial class Player : CharacterBody2D
   [Export] private HealthComponent Health { get; set; }
   [Export] private AnimationPlayer Animation { get; set; }
   [Export] private ProgressBar HealthBar { get; set; }
+  [Export] private ProgressBar LevelBar { get; set; }
   [Export] private Global Global;
 
   [Signal] public delegate void IsDeathEventHandler();
@@ -36,6 +37,8 @@ public partial class Player : CharacterBody2D
     base._PhysicsProcess(delta);
 
     HealthBar.Value = Health.PorcentageHealth();
+
+
 
     PlayerDirection = Input.GetVector(
       "Move_Left",

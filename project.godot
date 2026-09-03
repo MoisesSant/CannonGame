@@ -37,6 +37,7 @@ enabled=PackedStringArray("res://addons/BuildOnChangeOnly/plugin.cfg")
 [file_customization]
 
 folder_colors={
+"res://Assets/": "pink",
 "res://Enemy/": "red",
 "res://Main/": "purple",
 "res://Player/": "teal",
@@ -49,6 +50,7 @@ folder_colors={
 Bullets=""
 Player=""
 Enemy=""
+GlobalStats=""
 
 [input]
 
@@ -95,3 +97,4 @@ Shoot={
 [rendering]
 
 rendering_device/driver.windows="d3d12"
+viewport/hdr_2d=true

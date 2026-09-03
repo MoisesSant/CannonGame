@@ -57,6 +57,7 @@ _data = {
 [node name="Player" type="CharacterBody2D" unique_id=796541961 node_paths=PackedStringArray("Movement", "Health", "Animation") groups=["Player"]]
 modulate = Color(1, 1, 1, 0.9529412)
 z_index = 1
+scale = Vector2(1.3818566, 1.3818566)
 collision_mask = 2
 script = ExtResource("1_4ntmi")
 Movement = NodePath("MovementComponent")
@@ -91,7 +92,6 @@ debug_color = Color(0.9840557, 0, 0.35163862, 0.41960785)
 
 [node name="HealthComponent" type="Node" parent="." unique_id=729202920]
 script = ExtResource("5_k53q1")
-CanBecomeInvencible = true
 InvencibilityTime = 1.0
 
 [node name="MovementComponent" type="Node" parent="." unique_id=1521840524]
@@ -100,3 +100,5 @@ Speed = 150.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=109945034]
 libraries/ = SubResource("AnimationLibrary_vtle1")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=854643918]

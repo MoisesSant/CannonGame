@@ -3,7 +3,7 @@ using Godot;
 public partial class ResumeButton : Button
 {
 	[Signal] public delegate void ResumeGameEventHandler();
-	[Export] private GameManager Game;
+	[Export] private ScreenManager Game;
 
 	public override void _Ready()
 	{
