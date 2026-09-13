@@ -3,6 +3,8 @@ using Godot;
 
 public partial class WaveComponent : Node
 {
+  [Export] private Global Global { get; set; }
+  [Export] private Player Player { get; set; }
   [Export] private PackedScene EnemyScene { get; set; }
   [Export] private Marker2D[] SpawnPoints { get; set; }
   [Export] private float SpawnRate { get; set; } = 5.0f;
@@ -57,37 +59,45 @@ public partial class WaveComponent : Node
       case 1:
         SpawnRate = 3.5f;
         break;
-
       case 2:
         SpawnRate = 3.0f;
         break;
-
       case 3:
         SpawnRate = 2.5f;
         break;
-
       case 4:
         SpawnRate = 2.0f;
         break;
-
       case 5:
         SpawnRate = 1.5f;
         break;
-
       case 6:
         SpawnRate = 1.0f;
         break;
     }
     GD.Print("Current SpawnTime: ", _spawnTimer.WaitTime);
-
   }
 
   public void SpawnAtBorder()
   {
+
     Marker2D spawnPoint = SpawnPoints[GD.RandRange(0, SpawnPoints.Length - 1)];
-    CharacterBody2D Enemy = EnemyScene.Instantiate<CharacterBody2D>();
+    Enemy Enemy = EnemyScene.Instantiate<Enemy>();
 
     Enemy.GlobalPosition = spawnPoint.GlobalPosition;
     AddChild(Enemy);
+
+    Enemy.EnemyDeplated += OnEnemyDeplated;
   }
+
+  public void OnEnemyDeplated()
+  {
+
+    Global.PlayerXP += 5;
+
+    GD.Print("XP: ", Global.PlayerXP);
+    GD.Print("%: ", Global.GetLevelPorcentage());
+  }
+
+
 }

@@ -8,15 +8,15 @@ public partial class Player : CharacterBody2D
   [Export] private HealthComponent Health { get; set; }
   [Export] private AnimationPlayer Animation { get; set; }
   [Export] private ProgressBar HealthBar { get; set; }
-  [Export] private ProgressBar LevelBar { get; set; }
   [Export] private Global Global;
-
   [Signal] public delegate void IsDeathEventHandler();
+
   private Vector2 PlayerDirection { get; set; }
   private Vector2 MouseDirection => GetGlobalMousePosition();
-  private double RotationSpeed { get; set; } = 10.0f;
-  private double TargetDirection => MouseDistance.Angle() + Math.PI / 2;
   private Vector2 MouseDistance => MouseDirection - GlobalPosition;
+
+  private double TargetDirection => MouseDistance.Angle() + Math.PI / 2;
+  private double RotationSpeed { get; set; } = 10.0f;
   private bool IsPlayerDead { get; set; } = false;
 
   public override void _Ready()
@@ -24,21 +24,23 @@ public partial class Player : CharacterBody2D
     base._Ready();
     AddToGroup("Player");
 
-    Health.Depleted += () => IsPlayerDead = true;
+    // Error Check
+    if (Health == null) { GD.PrintErr($"There is no {Health.GetClass} setup"); return; }
+    if (Movement == null) { GD.PrintErr($"There is no {Movement.GetClass} setup"); return; }
+    if (HealthBar == null) { GD.PrintErr($"There is no {HealthBar.GetClass} setup"); return; }
 
-    if (Movement == null)
-    {
-      GD.PrintErr("Movement is not defined");
-    }
+    // Connections
+    Health.Depleted += () => IsPlayerDead = true;
+    Health.HealthChanged += (current, max) => { HealthBar.Value = Health.GetHealthPorcentage(); };
+    HealthBar.Value = Health.GetHealthPorcentage();
+
+    // Debug
+    /*---*/
   }
 
   public override void _PhysicsProcess(double delta)
   {
     base._PhysicsProcess(delta);
-
-    HealthBar.Value = Health.PorcentageHealth();
-
-
 
     PlayerDirection = Input.GetVector(
       "Move_Left",

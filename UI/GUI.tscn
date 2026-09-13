@@ -1,35 +1,106 @@
 [gd_scene format=3 uid="uid://ej0pyl0jd74r"]
 
+[ext_resource type="Script" uid="uid://626ag3b6hcfa" path="res://Main/ScreenManager.cs" id="1_dl5f7"]
+[ext_resource type="PackedScene" uid="uid://cqvq51hc27wnd" path="res://UI/Screens/DeathScreen.tscn" id="2_n3xue"]
+[ext_resource type="PackedScene" uid="uid://npi0aefidbwp" path="res://UI/Screens/PauseManu.tscn" id="3_u703e"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ansgg"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1qjd6"]
+bg_color = Color(0, 0.95, 0.36416653, 1)
+
+[sub_resource type="Theme" id="Theme_sf8lx"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_ansgg")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_1qjd6")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gcscy"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6i321"]
+bg_color = Color(0.5753272, 0.5249686, 0.98337275, 1)
+
+[sub_resource type="Theme" id="Theme_irdu2"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_gcscy")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_6i321")
+
 [node name="GUI" type="CanvasLayer" unique_id=325915292]
 process_mode = 3
 follow_viewport_enabled = true
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=2111621806]
-position = Vector2(320, 180)
-
-[node name="MainUI" type="Control" parent="." unique_id=6583501]
+[node name="HUD" type="Control" parent="." unique_id=591041186]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
-[node name="MarginContainer" type="MarginContainer" parent="MainUI" unique_id=56093312]
+[node name="MarginContainer" type="MarginContainer" parent="HUD" unique_id=2125100756]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 120
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 120
-theme_override_constants/margin_bottom = 70
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 500
+theme_override_constants/margin_bottom = 250
 
-[node name="HealthBar" type="ProgressBar" parent="MainUI/MarginContainer" unique_id=855945829]
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/MarginContainer" unique_id=324236191]
+modulate = Color(1, 1, 1, 0.42745098)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HUD/MarginContainer/VBoxContainer" unique_id=1314026215]
+layout_mode = 2
+text = "Health"
+
+[node name="HealthBar" type="ProgressBar" parent="HUD/MarginContainer/VBoxContainer" unique_id=1566104786]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 1)
 custom_maximum_size = Vector2(-1, 10)
 layout_mode = 2
-size_flags_vertical = 1
+size_flags_vertical = 3
+theme = SubResource("Theme_sf8lx")
 show_percentage = false
+
+[node name="HSeparator" type="HSeparator" parent="HUD/MarginContainer/VBoxContainer" unique_id=2006796261]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label2" type="Label" parent="HUD/MarginContainer/VBoxContainer" unique_id=385276872]
+layout_mode = 2
+text = "Level"
+
+[node name="LevelBar" type="ProgressBar" parent="HUD/MarginContainer/VBoxContainer" unique_id=153861803]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 1)
+custom_maximum_size = Vector2(-1, 10)
+layout_mode = 2
+size_flags_vertical = 3
+theme = SubResource("Theme_irdu2")
+show_percentage = false
+
+[node name="ScreenManager" type="Node" parent="." unique_id=34583844]
+process_mode = 3
+script = ExtResource("1_dl5f7")
+
+[node name="DeathScreen" parent="ScreenManager" unique_id=1971909218 node_paths=PackedStringArray("PauseManu") instance=ExtResource("2_n3xue")]
+unique_name_in_owner = true
+process_mode = 3
+PauseManu = NodePath("../PauseMenu")
+
+[node name="Background" parent="ScreenManager/DeathScreen" index="0" unique_id=385403409]
+color = Color(0, 0, 0, 0)
+
+[node name="PauseMenu" parent="ScreenManager" unique_id=118186697 node_paths=PackedStringArray("Game") instance=ExtResource("3_u703e")]
+unique_name_in_owner = true
+process_mode = 3
+visible = false
+Game = NodePath("..")
+
+[editable path="ScreenManager/DeathScreen"]
+[editable path="ScreenManager/PauseMenu"]

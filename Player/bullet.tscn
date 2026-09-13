@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b6um2prjlrvli" path="res://Player/Bullet.cs" id="1_kxw81"]
 [ext_resource type="Script" uid="uid://4a3qi54t0gux" path="res://Scripts/Components/HitboxComponent.cs" id="2_tqmay"]
-[ext_resource type="Texture2D" uid="uid://j7w5wionfj1h" path="res://Assets/Enemy/TheEnemy_Pointless.png" id="3_d7yj7"]
+[ext_resource type="Texture2D" uid="uid://j7w5wionfj1h" path="res://Assets/Player/Bullet.png" id="3_d7yj7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vouaq"]
 
@@ -34,5 +34,5 @@ debug_color = Color(0.99480647, 0, 0.22358105, 0.41960785)
 [node name="TheEnemyPointless" type="Sprite2D" parent="." unique_id=1051521785]
 modulate = Color(0.20949078, 0.43253607, 0.5197132, 1)
 texture_filter = 1
-scale = Vector2(0.8571428, 0.8571428)
+scale = Vector2(0.85714257, 0.85714257)
 texture = ExtResource("3_d7yj7")

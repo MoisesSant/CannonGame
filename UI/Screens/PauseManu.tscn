@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://npi0aefidbwp"]
 
-[ext_resource type="Script" uid="uid://dspb6vm2fo8p" path="res://UI/ResetButton.cs" id="1_6hnju"]
-[ext_resource type="Script" uid="uid://223n5mmt7rt7" path="res://UI/PauseManu.cs" id="1_8eqmm"]
-[ext_resource type="Script" uid="uid://bqwlrjw4h7nn4" path="res://UI/QuitButton.cs" id="2_7e2uc"]
-[ext_resource type="Script" uid="uid://dvm15tts56ylv" path="res://UI/ResumeButton.cs" id="2_8eqmm"]
+[ext_resource type="Script" uid="uid://dspb6vm2fo8p" path="res://UI/Buttons/ResetButton.cs" id="1_6hnju"]
+[ext_resource type="Script" uid="uid://223n5mmt7rt7" path="res://UI/Screens/PauseManu.cs" id="1_8eqmm"]
+[ext_resource type="Script" uid="uid://dvm15tts56ylv" path="res://UI/Buttons/ResumeButton.cs" id="2_8eqmm"]
+[ext_resource type="Script" uid="uid://bqwlrjw4h7nn4" path="res://UI/Buttons/QuitButton.cs" id="4_8swli"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_peltt"]
 font_size = 30
@@ -75,4 +75,4 @@ script = ExtResource("1_6hnju")
 [node name="QuitButton" type="Button" parent="Margin/VBoxContainer/MarginContainer/VBoxContainer" unique_id=424953964]
 layout_mode = 2
 text = "Quit"
-script = ExtResource("2_7e2uc")
+script = ExtResource("4_8swli")

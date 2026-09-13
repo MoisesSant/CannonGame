@@ -13,7 +13,7 @@ public partial class HitboxComponent : Area2D
 
 	private void OnAreaEnteredSignal(Area2D Area)
 	{
-		if (Area is not HurtboxComponent) return; // Ignora qualquer area que não for HurtBox
+		if (Area is not HealthComponent) return; // Ignora qualquer area que não for HeakthComp.
 
 		var hitData = new HitData
 		{
@@ -21,7 +21,7 @@ public partial class HitboxComponent : Area2D
 			_hasCollided = _hasCollided,
 		};
 
-		((HurtboxComponent)Area).ReceiveHit(hitData); // Chama a função dentro do Hurtbox e aplica o hitData
+		((HealthComponent)Area).ReceiveHit(hitData); // Chama a função dentro do HeakthComp. e aplica o hitData
 
 		EmitSignal(SignalName.Hit, hitData); // Transmite os dados contidos
 

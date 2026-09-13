@@ -2,17 +2,18 @@ using Godot;
 
 public partial class AiComponent : Node
 {
-	private Node2D _target;
-	private CharacterBody2D OwnerBody { get; set; }
-	private Godot.Collections.Array<Node> Players { get; set; }
-	private float Distance { get; set; }
 	[Signal] public delegate void TargetAcquiredEventHandler(Node2D Target);
 	[Signal] public delegate void TargetLostEventHandler();
+	private CharacterBody2D OwnerBody { get; set; }
+	private Node2D _target;
+	private Godot.Collections.Array<Node> Players { get; set; }
+	private float Distance { get; set; }
 
 	public override void _Ready()
 	{
 		base._Ready();
 		OwnerBody = GetParent<CharacterBody2D>(); //define o corpo do Owner
+
 		_findTarget();
 	}
 
@@ -29,6 +30,11 @@ public partial class AiComponent : Node
 
 	private void _findTarget()
 	{
+		if (OwnerBody == null)
+		{
+			GD.PrintErr("OwnerBody was not found!");
+			return;
+		}
 		Players = GetTree().GetNodesInGroup("Player");
 
 		if (Players.Count > 0)

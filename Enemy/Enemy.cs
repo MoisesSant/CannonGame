@@ -2,13 +2,14 @@ using Godot;
 
 public partial class Enemy : CharacterBody2D
 {
-	[Export] private MovementComponent Movement;
-	[Export] private HealthComponent Health;
+	[Signal] public delegate void EnemyDeplatedEventHandler();
+	[Export] private MovementComponent Movement { get; set; }
+	[Export] private HealthComponent Health { get; set; }
 	[Export] ProgressBar HealthBar { get; set; }
 
 	private Vector2 Direction { get; set; }
 	private CharacterBody2D Player { get; set; }
-	private Global Global;
+
 
 	public override void _Ready()
 	{
@@ -16,7 +17,6 @@ public partial class Enemy : CharacterBody2D
 		AddToGroup("Enemy");
 		Health.Depleted += Death;
 
-		Global = (Global)GetTree().GetFirstNodeInGroup("GlobalStats");
 		Player = (CharacterBody2D)GetTree().GetFirstNodeInGroup("Player");
 
 		if (Movement == null) // Checagem de erro
@@ -34,17 +34,15 @@ public partial class Enemy : CharacterBody2D
 
 	private void Death()
 	{
-		Global.PlayerPoints += 1;
-		GD.Print(Global.PlayerPoints);
+		EmitSignal(SignalName.EnemyDeplated);
 		QueueFree();
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
 		base._PhysicsProcess(delta);
-		Direction = GlobalPosition.DirectionTo(Player.GlobalPosition);
+		Direction = GlobalPosition.DirectionTo(Player.GlobalPosition); // Basic and temporary form to follow the player (Without AIComponent)
 		Velocity = Movement.ApplyLinearMovement(Direction, this);
-
-		HealthBar.Value = Health.PorcentageHealth();
+		HealthBar.Value = Health.GetHealthPorcentage();
 	}
 }

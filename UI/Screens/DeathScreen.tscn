@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://cqvq51hc27wnd"]
 
-[ext_resource type="Script" uid="uid://dspb6vm2fo8p" path="res://UI/ResetButton.cs" id="1_oaxie"]
-[ext_resource type="Script" uid="uid://g5vqtnmx6v18" path="res://UI/DeathScreen.cs" id="1_sg0mt"]
-[ext_resource type="Script" uid="uid://bqwlrjw4h7nn4" path="res://UI/QuitButton.cs" id="2_oaxie"]
+[ext_resource type="Script" uid="uid://dspb6vm2fo8p" path="res://UI/Buttons/ResetButton.cs" id="1_oaxie"]
+[ext_resource type="Script" uid="uid://g5vqtnmx6v18" path="res://UI/Screens/DeathScreen.cs" id="1_sg0mt"]
+[ext_resource type="Script" uid="uid://bqwlrjw4h7nn4" path="res://UI/Buttons/QuitButton.cs" id="3_vv0es"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_k3v36"]
 font_size = 30
@@ -19,14 +19,14 @@ script = ExtResource("1_sg0mt")
 Reset = NodePath("Margin/VBoxContainer/MarginContainer/VBoxContainer/ResetButton")
 Quit = NodePath("Margin/VBoxContainer/MarginContainer/VBoxContainer/QuitButton")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=385403409]
+[node name="Background" type="ColorRect" parent="." unique_id=385403409]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.25882354, 0.25882354, 0.25882354, 0.14901961)
+color = Color(0.23529412, 0.050980393, 0.050980393, 0.45490196)
 
 [node name="Margin" type="MarginContainer" parent="." unique_id=76121724]
 layout_mode = 1
@@ -68,4 +68,4 @@ script = ExtResource("1_oaxie")
 [node name="QuitButton" type="Button" parent="Margin/VBoxContainer/MarginContainer/VBoxContainer" unique_id=55279895]
 layout_mode = 2
 text = "Quit"
-script = ExtResource("2_oaxie")
+script = ExtResource("3_vv0es")

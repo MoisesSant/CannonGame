@@ -1,7 +1,7 @@
 using System;
 using Godot;
 
-public partial class HealthComponent : Node
+public partial class HealthComponent : Area2D
 {
 	[Export] public float MaxHealth { get; private set; } = 100.0f;
 
@@ -33,11 +33,13 @@ public partial class HealthComponent : Node
 		IsInvencible = true;
 		SetInvencibility();
 	}
-	public float PorcentageHealth()
+
+	public float GetHealthPorcentage()
 	{
 		float porcentage = CurrentHealth / MaxHealth * 100;
 		return porcentage;
 	}
+
 	public void SetInvencibility()
 	{
 		_timer = new Timer
@@ -49,5 +51,15 @@ public partial class HealthComponent : Node
 		AddChild(_timer);
 		_timer.Start();
 		_timer.Timeout += () => IsInvencible = false;
+	}
+
+	public void ReceiveHit(HitData hitData)
+	{
+		if (hitData == null)
+		{
+			GD.PrintErr(what: "There is no Data in hitData");
+			return;
+		}
+		TakeDamage(hitData);
 	}
 }
