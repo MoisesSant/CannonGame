@@ -6,7 +6,7 @@ public partial class Cannon : Node2D
 	[Export] public Marker2D ShootPos { get; set; }
 	[Export] public float CooldownTime { get; set; } = 1.0f;
 
-	private bool _canShoot = true; // 
+	private bool _canShoot = true;
 	private Timer _cooldownTimer;
 
 	public override void _Ready()

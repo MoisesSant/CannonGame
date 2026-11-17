@@ -1,13 +1,15 @@
-using System;
 using Godot;
 
 public partial class HealthComponent : Area2D
 {
-	[Export] public float MaxHealth { get; private set; } = 100.0f;
 
-	[ExportCategory("Invencibility")]
-	[Export] public bool CanBecomeInvencible { get; set; }
-	[Export] public float InvencibilityTime { get; set; }
+	[ExportCategory("Attributes")]
+	[ExportGroup("Invencibility")]
+	[Export(PropertyHint.Enum, "True,False")] private bool CanBecomeInvencible { get; set; } = false;
+	[Export(PropertyHint.Range, "0.1,3, or_greater")] private float InvencibilityTime { get; set; } = 1;
+
+	[ExportGroup("Health")]
+	[Export(PropertyHint.Range, "1.0,100.0, or_greater")] private float MaxHealth { get; set; } = 100.0f;
 
 	[Signal] public delegate void HealthChangedEventHandler(float Current, float Max);
 	[Signal] public delegate void DepletedEventHandler(); // Quando a vida acaba
@@ -57,7 +59,7 @@ public partial class HealthComponent : Area2D
 	{
 		if (hitData == null)
 		{
-			GD.PrintErr(what: "There is no Data in hitData");
+			GD.PrintErr(what: $"{this} was not able to receive hit in hitData");
 			return;
 		}
 		TakeDamage(hitData);

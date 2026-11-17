@@ -6,6 +6,20 @@
 [ext_resource type="Script" uid="uid://dkce3x8am63ty" path="res://Scripts/Components/HealthComponent.cs" id="6_m6jha"]
 [ext_resource type="Script" uid="uid://4a3qi54t0gux" path="res://Scripts/Components/HitboxComponent.cs" id="7_glvfu"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vtle1"]
+bg_color = Color(0.9, 0, 0.029999971, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_00tjw"]
+bg_color = Color(1, 0.34657717, 0.2800086, 1)
+
+[sub_resource type="Theme" id="Theme_k53q1"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_vtle1")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_00tjw")
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_0rspp"]
 atlas = ExtResource("2_glvfu")
 region = Rect2(0, 0, 32, 32)
@@ -117,28 +131,14 @@ animations = [{
 "speed": 12.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ncf7h"]
-radius = 19.00658
+[sub_resource type="CircleShape2D" id="CircleShape2D_fkela"]
+radius = 15.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vtle1"]
-bg_color = Color(0.9, 0, 0.029999971, 0)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_00tjw"]
-bg_color = Color(0.73978436, 3.573708e-05, 1.992613e-05, 1)
-
-[sub_resource type="Theme" id="Theme_k53q1"]
-ProgressBar/styles/background = SubResource("StyleBoxFlat_vtle1")
-ProgressBar/styles/fill = SubResource("StyleBoxFlat_00tjw")
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_rbvsp"]
-radius = 22.022715
+[sub_resource type="CircleShape2D" id="CircleShape2D_jd4ap"]
+radius = 17.845158
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_borfm"]
-radius = 20.069324
+radius = 21.193417
 
 [node name="Enemy" type="CharacterBody2D" unique_id=1424765755 node_paths=PackedStringArray("Movement", "Health", "HealthBar")]
 scale = Vector2(0.6, 0.6)
@@ -146,6 +146,28 @@ script = ExtResource("1_eqilm")
 Movement = NodePath("MovementComponent")
 Health = NodePath("HealthComponent")
 HealthBar = NodePath("ProgressBar")
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=1216314545]
+z_index = 2
+custom_minimum_size = Vector2(0, 1)
+custom_maximum_size = Vector2(-1, 10)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.333332
+offset_top = -36.666664
+offset_right = 24.358845
+offset_bottom = -28.19831
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -3.1415927
+pivot_offset = Vector2(23.846088, 4.2341766)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = SubResource("Theme_k53q1")
+show_percentage = false
 
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1512717521]
 texture_filter = 1
@@ -157,30 +179,10 @@ autoplay = "Walking"
 frame_progress = 0.18936083
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=180874296]
-visible = false
 z_index = 1
-shape = SubResource("CircleShape2D_ncf7h")
+shape = SubResource("CircleShape2D_fkela")
 disabled = true
 debug_color = Color(1, 1, 1, 0.45490196)
-
-[node name="ProgressBar" type="ProgressBar" parent="." unique_id=1216314545]
-custom_minimum_size = Vector2(0, 1)
-custom_maximum_size = Vector2(-1, 10)
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -28.333332
-offset_top = -38.333332
-offset_right = 29.033333
-offset_bottom = -28.333332
-grow_horizontal = 2
-grow_vertical = 0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme = SubResource("Theme_k53q1")
-show_percentage = false
 
 [node name="MovementComponent" type="Node" parent="." unique_id=333168761]
 script = ExtResource("3_eqilm")
@@ -191,18 +193,17 @@ Friction = 0.0
 collision_layer = 2
 collision_mask = 4
 script = ExtResource("6_m6jha")
-MaxHealth = 20.0
+MaxHealth = 50.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HealthComponent" unique_id=1157318482]
-scale = Vector2(0.84056413, 0.83668995)
-shape = SubResource("CircleShape2D_rbvsp")
+[node name="Hurtbox" type="CollisionShape2D" parent="HealthComponent" unique_id=1157318482]
+shape = SubResource("CircleShape2D_jd4ap")
 debug_color = Color(0.7498081, 0.46027613, 3.85046e-07, 0.41960785)
 
 [node name="HitboxComponent" type="Area2D" parent="." unique_id=2067057365]
 scale = Vector2(0.86504847, 0.8847941)
-collision_layer = 2
+collision_layer = 0
 script = ExtResource("7_glvfu")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=1563473544]
+[node name="Hitbox" type="CollisionShape2D" parent="HitboxComponent" unique_id=1563473544]
 shape = SubResource("CircleShape2D_borfm")
 debug_color = Color(0.9011305, 0, 0.1581403, 0.41960785)

@@ -63,7 +63,7 @@ public partial class Global : Node
 	public void LevelUp()
 	{
 		Level++;
-		LevelNumText.Text = Level.ToString();
+		LevelNumText.Text = Level.ToString(); // atualiza 
 		ExperienceRequired = GetRequiredXP();
 		PlayerXP = 0;
 	}

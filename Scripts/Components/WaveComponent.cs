@@ -1,103 +1,97 @@
-using System;
 using Godot;
 
 public partial class WaveComponent : Node
 {
-  [Export] private Global Global { get; set; }
-  [Export] private Player Player { get; set; }
-  [Export] private PackedScene EnemyScene { get; set; }
-  [Export] private Marker2D[] SpawnPoints { get; set; }
-  [Export] private float SpawnRate { get; set; } = 5.0f;
-  [Export] private float WaveTime { get; set; } = 20.0f;
-  public int CurrentWave { get; set; }
-  private Timer _spawnTimer;
-  private Timer _waveTimer;
-  public override void _Ready()
-  {
-    base._Ready();
+    [ExportGroup("Settings")]
+    [Export] private float SpawnRate { get; set; } = 5.0f;
+    [Export] private float WaveTime { get; set; } = 20.0f;
 
-    _waveTimer = new Timer
+    [ExportGroup("References")]
+    [Export] public Global Global { get; set; }
+    [Export] private Player Player { get; set; }
+    [Export] private PackedScene EnemyScene { get; set; }
+    [Export] private Marker2D[] SpawnPoints { get; set; }
+    public int CurrentWave { get; set; }
+    private Timer _spawnTimer;
+    private Timer _waveTimer;
+    public override void _Ready()
     {
-      WaitTime = WaveTime,
-      Autostart = true,
-      OneShot = false,
-    };
-    _waveTimer.Timeout += WaveSetup;
-    AddChild(_waveTimer);
+        base._Ready();
 
-    _spawnTimer = new Timer
-    {
-      WaitTime = SpawnRate,
-      Autostart = true,
-      OneShot = false
-    };
-    _spawnTimer.Timeout += _on_SpawnTimer_timeout;
-    AddChild(_spawnTimer);
-  }
+        _waveTimer = new Timer
+        {
+            WaitTime = WaveTime,
+            Autostart = true,
+            OneShot = false,
+        };
 
-  public override void _Process(double delta)
-  {
-    base._Process(delta);
-    _spawnTimer.WaitTime = SpawnRate;
-  }
-  public void _on_SpawnTimer_timeout()
-  {
-    if (EnemyScene is null)
-    {
-      GD.PrintErr("EnemyScene is not defined!");
-      return;
+        _waveTimer.Timeout += WaveSetup;
+        AddChild(_waveTimer);
+
+        _spawnTimer = new Timer
+        {
+            WaitTime = SpawnRate,
+            Autostart = true,
+            OneShot = false
+        };
+
+        _spawnTimer.Timeout += _on_SpawnTimer_timeout;
+        _spawnTimer.WaitTime = SpawnRate;
+        AddChild(_spawnTimer);
     }
-    SpawnAtBorder();
-  }
 
-
-  public void WaveSetup()
-  {
-    CurrentWave += 1;
-    switch (CurrentWave)
+    public override void _Process(double delta)
     {
-      case 1:
-        SpawnRate = 3.5f;
-        break;
-      case 2:
-        SpawnRate = 3.0f;
-        break;
-      case 3:
-        SpawnRate = 2.5f;
-        break;
-      case 4:
-        SpawnRate = 2.0f;
-        break;
-      case 5:
-        SpawnRate = 1.5f;
-        break;
-      case 6:
-        SpawnRate = 1.0f;
-        break;
+        base._Process(delta);
     }
-    GD.Print("Current SpawnTime: ", _spawnTimer.WaitTime);
-  }
-
-  public void SpawnAtBorder()
-  {
-
-    Marker2D spawnPoint = SpawnPoints[GD.RandRange(0, SpawnPoints.Length - 1)];
-    Enemy Enemy = EnemyScene.Instantiate<Enemy>();
-
-    Enemy.GlobalPosition = spawnPoint.GlobalPosition;
-    AddChild(Enemy);
-
-    Enemy.EnemyDeplated += OnEnemyDeplated;
-  }
-
-  public void OnEnemyDeplated()
-  {
-
-    Global.PlayerXP += 5;
-
-    GD.Print("XP: ", Global.PlayerXP);
-    GD.Print("%: ", Global.GetLevelPorcentage());
-  }
+    public void _on_SpawnTimer_timeout()
+    {
+        if (EnemyScene is null)
+        {
+            GD.PrintErr("EnemyScene is not defined!");
+            return;
+        }
+        SpawnAtBorder();
+    }
 
 
+    public async void WaveSetup()
+    {
+        if (CurrentWave == 1 && Global.PlayerXP == 1)
+        {
+            CurrentWave++;
+
+            SpawnRate -= 0.3f;
+
+            if (SpawnRate < 0.5f) // Limitador
+                SpawnRate = 0.5f;
+
+            _spawnTimer.WaitTime = SpawnRate;
+            _spawnTimer.Start();
+
+        }
+
+        GD.Print("Current SpawnTime: ", _spawnTimer.WaitTime);
+    }
+
+    public void SpawnAtBorder()
+    {
+
+        Marker2D spawnPoint = SpawnPoints[GD.RandRange(0, SpawnPoints.Length - 1)];
+        Enemy Enemy = EnemyScene.Instantiate<Enemy>();
+
+        Enemy.GlobalPosition = spawnPoint.GlobalPosition;
+        AddChild(Enemy);
+
+        Enemy.EnemyDeplated += OnEnemyDeplated;
+    }
+
+    public void OnEnemyDeplated()
+    {
+
+        Global.PlayerXP += 5;
+
+        GD.Print("XP: ", Global.PlayerXP);
+        GD.Print("%: ", Global.GetLevelPorcentage());
+    }
 }

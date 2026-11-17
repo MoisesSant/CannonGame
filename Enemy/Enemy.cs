@@ -32,12 +32,6 @@ public partial class Enemy : CharacterBody2D
 		}
 	}
 
-	private void Death()
-	{
-		EmitSignal(SignalName.EnemyDeplated);
-		QueueFree();
-	}
-
 	public override void _PhysicsProcess(double delta)
 	{
 		base._PhysicsProcess(delta);
@@ -45,4 +39,11 @@ public partial class Enemy : CharacterBody2D
 		Velocity = Movement.ApplyLinearMovement(Direction, this);
 		HealthBar.Value = Health.GetHealthPorcentage();
 	}
+
+	private void Death()
+	{
+		EmitSignal(SignalName.EnemyDeplated);
+		QueueFree();
+	}
+
 }

@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://jlmpmj1cfi07"]
 
 [ext_resource type="Script" uid="uid://626ag3b6hcfa" path="res://Main/ScreenManager.cs" id="1_c8w0m"]
-[ext_resource type="PackedScene" uid="uid://cykiqkk722pgd" path="res://Player/player.tscn" id="2_1js7q"]
+[ext_resource type="PackedScene" uid="uid://cykiqkk722pgd" path="res://Player/Player.tscn" id="2_1js7q"]
 [ext_resource type="Script" uid="uid://u00gmbugau0l" path="res://Scripts/Components/WaveComponent.cs" id="2_2w1kt"]
 [ext_resource type="Script" uid="uid://dflljwlgahkm" path="res://Main/Global.cs" id="2_ansgg"]
-[ext_resource type="PackedScene" uid="uid://qn0gn840f544" path="res://Enemy/enemy.tscn" id="2_l80to"]
+[ext_resource type="PackedScene" uid="uid://qn0gn840f544" path="res://Enemy/Enemy.tscn" id="2_l80to"]
 [ext_resource type="PackedScene" uid="uid://cqvq51hc27wnd" path="res://UI/Screens/DeathScreen.tscn" id="3_l80to"]
 [ext_resource type="PackedScene" uid="uid://npi0aefidbwp" path="res://UI/Screens/PauseManu.tscn" id="5_ansgg"]
 [ext_resource type="Theme" uid="uid://dl0u06864w2rb" path="res://UI/Themes/HealthBarTheme.tres" id="6_ckg3m"]
@@ -30,10 +30,10 @@ ProgressBar/styles/fill = SubResource("StyleBoxFlat_hiksi")
 
 [node name="Global" type="Node" parent="." unique_id=170442796 node_paths=PackedStringArray("LevelBar", "Wave", "Modulate", "LevelNumText")]
 script = ExtResource("2_ansgg")
-LevelBar = NodePath("../World/Player/GUI/HUD/MarginContainer/VBoxContainer/LevelBar")
+LevelBar = NodePath("../World/Player/PlayerScreen/HUD/MarginContainer/VBoxContainer/LevelBar")
 Wave = NodePath("../WaveComponent")
 Modulate = NodePath("../World/Filter")
-LevelNumText = NodePath("../World/Player/GUI/HUD/MarginContainer/VBoxContainer/HSeparator/HBoxContainer/Number")
+LevelNumText = NodePath("../World/Player/PlayerScreen/HUD/MarginContainer/VBoxContainer/HSeparator/HBoxContainer/Number")
 
 [node name="WaveComponent" type="Node" parent="." unique_id=1835138914 node_paths=PackedStringArray("Global", "Player", "SpawnPoints")]
 script = ExtResource("2_2w1kt")
@@ -41,16 +41,15 @@ Global = NodePath("../Global")
 Player = NodePath("../World/Player")
 EnemyScene = ExtResource("2_l80to")
 SpawnPoints = [NodePath("../World/Player/Camera/EnemySpawnRange/SpawnPoint1"), NodePath("../World/Player/Camera/EnemySpawnRange/SpawnPoint2"), NodePath("../World/Player/Camera/EnemySpawnRange/SpawnPoint3"), NodePath("../World/Player/Camera/EnemySpawnRange/SpawnPoint4"), NodePath("../World/Player/Camera/EnemySpawnRange/SpawnPoint5"), NodePath("../World/Player/Camera/EnemySpawnRange/SpawnPoint6"), NodePath("../World/Player/Camera/EnemySpawnRange/SpawnPoint7"), NodePath("../World/Player/Camera/EnemySpawnRange/SpawnPoint8")]
-SpawnRate = 1.0
 
 [node name="World" type="Node2D" parent="." unique_id=1064387866]
 
 [node name="Ground" type="TextureRect" parent="World" unique_id=223729019]
 texture_filter = 1
-offset_left = -4367.0
-offset_top = -2105.0
-offset_right = 5304.0
-offset_bottom = 3981.0
+offset_left = -4410.0
+offset_top = -2853.0
+offset_right = 5261.0
+offset_bottom = 3233.0
 texture = ExtResource("8_1qjd6")
 expand_mode = 1
 stretch_mode = 1
@@ -63,7 +62,7 @@ environment = SubResource("Environment_ckg3m")
 
 [node name="Player" parent="World" unique_id=796541961 node_paths=PackedStringArray("HealthBar", "Global") instance=ExtResource("2_1js7q")]
 position = Vector2(319, 180)
-HealthBar = NodePath("GUI/HUD/MarginContainer/VBoxContainer/HealthBar")
+HealthBar = NodePath("PlayerScreen/HUD/MarginContainer/VBoxContainer/HealthBar")
 Global = NodePath("../../Global")
 
 [node name="Camera" type="Camera2D" parent="World/Player" unique_id=2111621806]
@@ -95,10 +94,10 @@ position = Vector2(378, -14)
 [node name="SpawnPoint8" type="Marker2D" parent="World/Player/Camera/EnemySpawnRange" unique_id=1528819112]
 position = Vector2(-428, -3)
 
-[node name="GUI" type="CanvasLayer" parent="World/Player" unique_id=325915292]
+[node name="PlayerScreen" type="CanvasLayer" parent="World/Player" unique_id=325915292]
 process_mode = 3
 
-[node name="HUD" type="Control" parent="World/Player/GUI" unique_id=6583501]
+[node name="HUD" type="Control" parent="World/Player/PlayerScreen" unique_id=6583501]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -107,7 +106,7 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="MarginContainer" type="MarginContainer" parent="World/Player/GUI/HUD" unique_id=56093312]
+[node name="MarginContainer" type="MarginContainer" parent="World/Player/PlayerScreen/HUD" unique_id=56093312]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -119,15 +118,15 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 500
 theme_override_constants/margin_bottom = 250
 
-[node name="VBoxContainer" type="VBoxContainer" parent="World/Player/GUI/HUD/MarginContainer" unique_id=2090514686]
+[node name="VBoxContainer" type="VBoxContainer" parent="World/Player/PlayerScreen/HUD/MarginContainer" unique_id=2090514686]
 modulate = Color(1, 1, 1, 0.42745098)
 layout_mode = 2
 
-[node name="HealthText" type="Label" parent="World/Player/GUI/HUD/MarginContainer/VBoxContainer" unique_id=1705900254]
+[node name="HealthText" type="Label" parent="World/Player/PlayerScreen/HUD/MarginContainer/VBoxContainer" unique_id=1705900254]
 layout_mode = 2
 text = "Health"
 
-[node name="HealthBar" type="ProgressBar" parent="World/Player/GUI/HUD/MarginContainer/VBoxContainer" unique_id=855945829]
+[node name="HealthBar" type="ProgressBar" parent="World/Player/PlayerScreen/HUD/MarginContainer/VBoxContainer" unique_id=855945829]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 1)
 custom_maximum_size = Vector2(-1, 10)
@@ -136,12 +135,12 @@ size_flags_vertical = 3
 theme = ExtResource("6_ckg3m")
 show_percentage = false
 
-[node name="HSeparator" type="HSeparator" parent="World/Player/GUI/HUD/MarginContainer/VBoxContainer" unique_id=1804062503]
+[node name="HSeparator" type="HSeparator" parent="World/Player/PlayerScreen/HUD/MarginContainer/VBoxContainer" unique_id=1804062503]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="HBoxContainer" type="HBoxContainer" parent="World/Player/GUI/HUD/MarginContainer/VBoxContainer/HSeparator" unique_id=769968824]
+[node name="HBoxContainer" type="HBoxContainer" parent="World/Player/PlayerScreen/HUD/MarginContainer/VBoxContainer/HSeparator" unique_id=769968824]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -151,15 +150,15 @@ offset_right = 86.0
 offset_bottom = 20.0
 grow_vertical = 2
 
-[node name="LevelText" type="Label" parent="World/Player/GUI/HUD/MarginContainer/VBoxContainer/HSeparator/HBoxContainer" unique_id=190354493]
+[node name="LevelText" type="Label" parent="World/Player/PlayerScreen/HUD/MarginContainer/VBoxContainer/HSeparator/HBoxContainer" unique_id=190354493]
 layout_mode = 2
 text = "Level"
 
-[node name="Number" type="Label" parent="World/Player/GUI/HUD/MarginContainer/VBoxContainer/HSeparator/HBoxContainer" unique_id=1066126786]
+[node name="Number" type="Label" parent="World/Player/PlayerScreen/HUD/MarginContainer/VBoxContainer/HSeparator/HBoxContainer" unique_id=1066126786]
 layout_mode = 2
 text = "1"
 
-[node name="LevelBar" type="ProgressBar" parent="World/Player/GUI/HUD/MarginContainer/VBoxContainer" unique_id=1239440884]
+[node name="LevelBar" type="ProgressBar" parent="World/Player/PlayerScreen/HUD/MarginContainer/VBoxContainer" unique_id=1239440884]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 1)
 custom_maximum_size = Vector2(-1, 10)
@@ -169,23 +168,23 @@ theme = SubResource("Theme_ckg3m")
 rounded = true
 show_percentage = false
 
-[node name="ScreenManager" type="Node" parent="World/Player/GUI" unique_id=967653481 node_paths=PackedStringArray("Player")]
+[node name="ScreenManager" type="Node" parent="World/Player/PlayerScreen" unique_id=967653481 node_paths=PackedStringArray("Player")]
 process_mode = 3
 script = ExtResource("1_c8w0m")
 Player = NodePath("../..")
 
-[node name="DeathScreen" parent="World/Player/GUI/ScreenManager" unique_id=1971909218 node_paths=PackedStringArray("Player", "PauseManu") instance=ExtResource("3_l80to")]
+[node name="DeathScreen" parent="World/Player/PlayerScreen/ScreenManager" unique_id=1971909218 node_paths=PackedStringArray("Player", "PauseManu") instance=ExtResource("3_l80to")]
 unique_name_in_owner = true
 process_mode = 3
 visible = false
 Player = NodePath("../../..")
 PauseManu = NodePath("../PauseMenu")
 
-[node name="PauseMenu" parent="World/Player/GUI/ScreenManager" unique_id=118186697 node_paths=PackedStringArray("Game") instance=ExtResource("5_ansgg")]
+[node name="PauseMenu" parent="World/Player/PlayerScreen/ScreenManager" unique_id=118186697 node_paths=PackedStringArray("Game") instance=ExtResource("5_ansgg")]
 unique_name_in_owner = true
 process_mode = 3
 visible = false
 Game = NodePath("..")
 
-[editable path="World/Player/GUI/ScreenManager/DeathScreen"]
-[editable path="World/Player/GUI/ScreenManager/PauseMenu"]
+[editable path="World/Player/PlayerScreen/ScreenManager/DeathScreen"]
+[editable path="World/Player/PlayerScreen/ScreenManager/PauseMenu"]
